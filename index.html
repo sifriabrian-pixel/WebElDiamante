@@ -7,490 +7,312 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Barlow+Condensed:wght@500;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --navy:       #0B1C3D;
-      --navy-mid:   #112347;
-      --blue:       #1656C1;
-      --blue-light: #2563EB;
-      --celeste:    #60A5FA;
-      --red:        #DC2626;
-      --white:      #FFFFFF;
-      --off-white:  #F1F5F9;
-      --gray-50:    #F8FAFC;
-      --gray-100:   #F1F5F9;
-      --gray-200:   #E2E8F0;
-      --gray-400:   #94A3B8;
-      --gray-600:   #475569;
-      --text:       #0F172A;
-
-      --radius-sm:  6px;
-      --radius:     10px;
-      --radius-lg:  16px;
-      --radius-xl:  24px;
-      --shadow-sm:  0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
-      --shadow:     0 4px 6px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.05);
-      --shadow-md:  0 10px 15px rgba(0,0,0,0.08), 0 4px 6px rgba(0,0,0,0.05);
-      --shadow-lg:  0 20px 25px rgba(0,0,0,0.1), 0 8px 10px rgba(0,0,0,0.06);
-      --t:          0.2s ease;
-
-      --font-body:    'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      --font-display: 'Barlow Condensed', sans-serif;
+      --navy:#0B1C3D; --navy-mid:#112347; --blue:#1656C1; --blue-light:#2563EB;
+      --celeste:#60A5FA; --red:#DC2626; --white:#FFFFFF; --off-white:#F1F5F9;
+      --gray-50:#F8FAFC; --gray-100:#F1F5F9; --gray-200:#E2E8F0;
+      --gray-400:#94A3B8; --gray-600:#475569; --text:#0F172A;
+      --r:10px; --rl:16px; --rxl:24px;
+      --sh:0 1px 3px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.06);
+      --shm:0 10px 15px rgba(0,0,0,.08),0 4px 6px rgba(0,0,0,.05);
+      --shl:0 20px 25px rgba(0,0,0,.1),0 8px 10px rgba(0,0,0,.06);
+      --t:.2s ease;
+      --fb:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+      --fd:'Barlow Condensed',sans-serif;
     }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:var(--fb);color:var(--text);background:#fff;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    img{display:block;max-width:100%}
+    a{text-decoration:none;color:inherit}
+    button{font-family:var(--fb);cursor:pointer}
+    .container{max-width:1200px;margin:0 auto;padding:0 24px}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:var(--r);font-weight:600;font-size:.9rem;letter-spacing:-.01em;transition:all var(--t);border:2px solid transparent}
+    .btn-p{background:var(--blue);color:#fff}.btn-p:hover{background:var(--blue-light);transform:translateY(-1px);box-shadow:0 8px 20px rgba(22,86,193,.3)}
+    .btn-o{background:transparent;color:#fff;border-color:rgba(255,255,255,.35)}.btn-o:hover{border-color:#fff;background:rgba(255,255,255,.08)}
+    .btn-w{background:#22C55E;color:#fff}.btn-w:hover{background:#16A34A;transform:translateY(-1px);box-shadow:0 8px 20px rgba(34,197,94,.3)}
+    .btn-lg{padding:14px 32px;font-size:.95rem}.btn-sm{padding:9px 18px;font-size:.82rem}
+    section{padding:80px 0}
+    .tag{display:inline-flex;align-items:center;background:rgba(22,86,193,.08);color:var(--blue);font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 12px;border-radius:999px;margin-bottom:14px}
+    h2.sh{font-family:var(--fd);font-size:clamp(1.9rem,3vw,2.8rem);font-weight:800;line-height:1.1;color:var(--navy);margin-bottom:14px;letter-spacing:-.01em}
+    h2.sh span{color:var(--blue)}
+    .sub{font-size:.95rem;color:var(--gray-600);line-height:1.7;max-width:540px}
+    .reveal{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease}
+    .reveal.on{opacity:1;transform:translateY(0)}
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; font-size: 16px; }
-    body { font-family: var(--font-body); color: var(--text); background: var(--white); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
-    img { display: block; max-width: 100%; }
-    a   { text-decoration: none; color: inherit; }
-    button { font-family: var(--font-body); cursor: pointer; }
+    /* NAV */
+    #nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:var(--navy);border-bottom:1px solid rgba(255,255,255,.07);transition:box-shadow var(--t)}
+    #nav.sd{box-shadow:0 4px 20px rgba(0,0,0,.25)}
+    .nw{display:flex;align-items:center;justify-content:space-between;height:64px;gap:20px}
+    .nl-logo{display:flex;align-items:center;gap:10px}
+    .nl-logo img{height:36px;background:#fff;border-radius:5px;padding:2px 5px}
+    .nl-logo-t{font-family:var(--fd);font-size:1.05rem;font-weight:800;color:#fff;line-height:1.1}
+    .nl-logo-t small{display:block;font-size:.6rem;font-weight:500;color:rgba(255,255,255,.4);letter-spacing:.12em;text-transform:uppercase}
+    .nl{display:flex;align-items:center;gap:2px;list-style:none}
+    .nl a{color:rgba(255,255,255,.7);font-size:.83rem;font-weight:500;padding:7px 13px;border-radius:6px;transition:all var(--t)}
+    .nl a:hover{color:#fff;background:rgba(255,255,255,.08)}
+    .nr{display:flex;align-items:center;gap:12px}
+    .ntel{color:rgba(255,255,255,.65);font-size:.8rem;font-weight:500;display:flex;align-items:center;gap:5px}
+    .ntel span{color:var(--celeste);font-weight:600}
+    .hbg{display:none;flex-direction:column;gap:5px;padding:4px;cursor:pointer}
+    .hbg span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;transition:all var(--t)}
 
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    /* HERO */
+    #hero{min-height:100vh;background:var(--navy);display:flex;align-items:center;position:relative;overflow:hidden;padding:0}
+    .hg1{position:absolute;top:-15%;right:-10%;width:600px;height:600px;background:radial-gradient(circle,rgba(22,86,193,.25) 0%,transparent 70%);border-radius:50%;pointer-events:none}
+    .hg2{position:absolute;bottom:-15%;left:-8%;width:450px;height:450px;background:radial-gradient(circle,rgba(22,86,193,.12) 0%,transparent 70%);border-radius:50%;pointer-events:none}
+    .hgb{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:50px 50px;pointer-events:none}
+    .hi{position:relative;z-index:2;width:100%;padding:120px 0 80px}
+    .hl2{display:grid;grid-template-columns:1.1fr 1fr;align-items:center;gap:60px}
+    .hey{display:flex;align-items:center;gap:10px;margin-bottom:22px}
+    .himp{background:var(--red);color:#fff;font-size:.65rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:4px}
+    .hyr{color:rgba(255,255,255,.5);font-size:.8rem;font-weight:500}
+    h1.ht{font-family:var(--fd);font-size:clamp(2.8rem,5vw,4.5rem);font-weight:900;line-height:.97;color:#fff;letter-spacing:-.01em;margin-bottom:20px}
+    h1.ht .hl{color:var(--celeste)}
+    h1.ht .sm{display:block;font-size:.4em;font-weight:600;color:rgba(255,255,255,.38);letter-spacing:.08em;text-transform:uppercase;margin-top:6px}
+    .hd{color:rgba(255,255,255,.62);font-size:1rem;line-height:1.75;max-width:460px;margin-bottom:32px}
+    .ha{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:44px}
+    .hst{display:flex;gap:28px;padding-top:28px;border-top:1px solid rgba(255,255,255,.1)}
+    .sn{font-family:var(--fd);font-size:1.9rem;font-weight:900;color:var(--celeste);line-height:1;margin-bottom:3px}
+    .sl{font-size:.7rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.08em;font-weight:600}
+    .hcards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .hc{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:var(--rl);padding:20px;transition:all var(--t)}
+    .hc:hover{background:rgba(255,255,255,.09);border-color:rgba(22,86,193,.4);transform:translateY(-2px)}
+    .hc.w{grid-column:span 2;display:flex;align-items:center;gap:14px;background:linear-gradient(135deg,rgba(22,86,193,.2),rgba(22,86,193,.05));border-color:rgba(22,86,193,.25)}
+    .hci{font-size:2rem;margin-bottom:10px}.hc.w .hci{margin-bottom:0;font-size:2.2rem;flex-shrink:0}
+    .hcl{font-size:.65rem;color:var(--celeste);text-transform:uppercase;letter-spacing:.1em;font-weight:700;margin-bottom:3px}
+    .hcv{font-size:.95rem;font-weight:700;color:#fff}
+    .hcs{font-size:.75rem;color:rgba(255,255,255,.4);margin-top:2px}
 
-    /* ── BUTTONS ── */
-    .btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 12px 24px; border-radius: var(--radius);
-      font-weight: 600; font-size: 0.9rem; letter-spacing: -0.01em;
-      transition: all var(--t); border: 2px solid transparent;
-    }
-    .btn-primary { background: var(--blue); color: #fff; }
-    .btn-primary:hover { background: var(--blue-light); transform: translateY(-1px); box-shadow: 0 8px 20px rgba(22,86,193,0.3); }
-    .btn-outline { background: transparent; color: #fff; border-color: rgba(255,255,255,0.35); }
-    .btn-outline:hover { border-color: #fff; background: rgba(255,255,255,0.08); }
-    .btn-wsp { background: #22C55E; color: #fff; }
-    .btn-wsp:hover { background: #16A34A; transform: translateY(-1px); box-shadow: 0 8px 20px rgba(34,197,94,0.3); }
-    .btn-lg { padding: 14px 32px; font-size: 0.95rem; }
-    .btn-sm { padding: 9px 18px; font-size: 0.82rem; }
+    /* TICKER */
+    .ticker{background:var(--blue);padding:9px 0;overflow:hidden}
+    .tt{display:flex;gap:56px;animation:tick 32s linear infinite;white-space:nowrap}
+    .ti{display:flex;align-items:center;gap:8px;color:#fff;font-size:.8rem;font-weight:600;flex-shrink:0}
+    .ts{width:4px;height:4px;background:rgba(255,255,255,.4);border-radius:50%}
+    @keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-    section { padding: 80px 0; }
+    /* WHY */
+    #why{background:var(--gray-50)}
+    .wl{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+    .wf{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:36px}
+    .fc{background:#fff;border-radius:var(--rl);padding:22px;box-shadow:var(--sh);border:1px solid var(--gray-200);transition:all var(--t)}
+    .fc:hover{border-color:var(--blue);box-shadow:var(--shm);transform:translateY(-3px)}
+    .fci{font-size:1.6rem;margin-bottom:10px}
+    .fct{font-size:.875rem;font-weight:700;color:var(--navy);margin-bottom:5px}
+    .fcd{font-size:.78rem;color:var(--gray-600);line-height:1.55}
+    .wc{background:var(--navy);border-radius:var(--rxl);padding:44px;color:#fff;position:relative;overflow:hidden}
+    .wc::before{content:'';position:absolute;top:-40%;right:-20%;width:320px;height:320px;background:radial-gradient(circle,rgba(22,86,193,.28) 0%,transparent 68%);border-radius:50%}
+    .wn{font-family:var(--fd);font-size:5rem;font-weight:900;color:var(--celeste);line-height:1;margin-bottom:6px;position:relative}
+    .wnl{font-size:1rem;font-weight:700;margin-bottom:14px;position:relative}
+    .wnd{font-size:.85rem;color:rgba(255,255,255,.55);line-height:1.7;position:relative}
+    .wli{margin-top:28px;display:flex;flex-direction:column;gap:10px;position:relative}
+    .wli div{display:flex;align-items:center;gap:10px;font-size:.85rem;color:rgba(255,255,255,.8)}
+    .wli div::before{content:'✓';flex-shrink:0;width:20px;height:20px;background:var(--blue);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:800}
 
-    .tag {
-      display: inline-flex; align-items: center; gap: 6px;
-      background: rgba(22,86,193,0.08); color: var(--blue);
-      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase; padding: 4px 12px; border-radius: 999px;
-      margin-bottom: 14px;
-    }
+    /* CATS */
+    #cats{background:#fff}
+    .ch{text-align:center;margin-bottom:40px}
+    .ch .sub{margin:0 auto}
+    .cg{display:grid;grid-template-columns:repeat(7,1fr);gap:12px}
+    .cc{background:var(--gray-50);border:2px solid var(--gray-200);border-radius:var(--rl);padding:24px 12px;text-align:center;cursor:pointer;transition:all var(--t)}
+    .cc:hover,.cc.active{background:var(--navy);border-color:var(--blue);transform:translateY(-3px);box-shadow:var(--shm)}
+    .cc:hover .cci,.cc.active .cci{transform:scale(1.1)}
+    .cc:hover .ccn,.cc.active .ccn{color:#fff}
+    .cc:hover .ccc,.cc.active .ccc{color:var(--celeste)}
+    .cci{font-size:2rem;margin-bottom:10px;transition:transform var(--t)}
+    .ccn{font-size:.72rem;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px}
+    .ccc{font-size:.68rem;color:var(--gray-400);font-weight:500}
 
-    h2.sh {
-      font-family: var(--font-display);
-      font-size: clamp(1.9rem, 3vw, 2.8rem);
-      font-weight: 800; line-height: 1.1;
-      color: var(--navy); margin-bottom: 14px; letter-spacing: -0.01em;
-    }
-    h2.sh span { color: var(--blue); }
-    .sub { font-size: 0.95rem; color: var(--gray-600); line-height: 1.7; max-width: 540px; }
+    /* PRODUCTOS */
+    #prods{background:var(--gray-100);padding:60px 0 80px}
+    .pt{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:28px;gap:20px;flex-wrap:wrap}
+    .sb{position:relative}
+    .sb input{padding:10px 14px 10px 38px;border:2px solid var(--gray-200);border-radius:var(--r);font-family:var(--fb);font-size:.85rem;color:var(--text);background:#fff;outline:none;width:260px;transition:border-color var(--t),box-shadow var(--t)}
+    .sb input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(22,86,193,.1)}
+    .sb svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--gray-400)}
+    .fb2{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+    .fb2 button{padding:7px 16px;border-radius:999px;font-size:.78rem;font-weight:600;border:1.5px solid var(--gray-200);background:#fff;color:var(--gray-600);cursor:pointer;transition:all var(--t);font-family:var(--fb)}
+    .fb2 button:hover{border-color:var(--blue);color:var(--blue)}
+    .fb2 button.active{background:var(--blue);border-color:var(--blue);color:#fff}
+    .pg{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
+    .pc{background:#fff;border-radius:var(--rl);overflow:hidden;box-shadow:var(--sh);border:1px solid var(--gray-200);transition:all var(--t);position:relative;animation:fu .3s ease}
+    .pc:hover{transform:translateY(-4px);box-shadow:var(--shl);border-color:var(--blue)}
+    @keyframes fu{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+    .pb2{position:absolute;top:10px;left:10px;z-index:3;font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;padding:3px 8px;border-radius:4px;color:#fff}
+    .pb2.nuevo{background:var(--blue)}.pb2.sinstock{background:var(--gray-400)}
+    .pi{height:170px;background:var(--gray-50);overflow:hidden;display:flex;align-items:center;justify-content:center;position:relative}
+    .pi img{width:100%;height:100%;object-fit:contain;padding:12px;transition:transform .35s ease}
+    .pc:hover .pi img{transform:scale(1.06)}
+    .pi-fb{font-size:3.5rem;color:var(--gray-400)}
+    .pbd{padding:14px}
+    .pcat{font-size:.62rem;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.09em;margin-bottom:4px}
+    .pnm{font-size:.875rem;font-weight:700;color:var(--navy);margin-bottom:3px;line-height:1.3}
+    .part{font-size:.7rem;color:var(--gray-400);font-weight:500;margin-bottom:5px}
+    .pds{font-size:.74rem;color:var(--gray-600);line-height:1.5;margin-bottom:10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+    .ppr{display:inline-block;font-size:.67rem;font-weight:600;color:var(--blue);background:rgba(22,86,193,.08);padding:2px 8px;border-radius:4px;margin-bottom:10px}
+    .pf{display:flex;align-items:center;justify-content:space-between;padding-top:10px;border-top:1px solid var(--gray-100)}
+    .ppx{font-family:var(--fd);font-size:1.25rem;font-weight:800;color:var(--red);line-height:1}
+    .ppx .pu{font-family:var(--fb);font-size:.67rem;font-weight:500;color:var(--gray-400);display:block;margin-top:2px}
+    .pwb{background:#22C55E;color:#fff;border:none;width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.9rem;transition:all var(--t);flex-shrink:0}
+    .pwb:hover{background:#16A34A;transform:scale(1.08)}
+    .pss{font-size:.78rem;font-weight:600;color:var(--gray-400)}
+    .nores{grid-column:1/-1;text-align:center;padding:60px;color:var(--gray-400)}
 
-    /* ── REVEAL ── */
-    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
-    .reveal.on { opacity: 1; transform: translateY(0); }
+    /* Loading state */
+    .loading{grid-column:1/-1;text-align:center;padding:60px;color:var(--gray-400)}
+    .spinner{width:40px;height:40px;border:3px solid var(--gray-200);border-top-color:var(--blue);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px}
+    @keyframes spin{to{transform:rotate(360deg)}}
 
-    /* ══════════════════════════════════════════
-       NAVBAR
-    ══════════════════════════════════════════ */
-    #nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-      background: var(--navy);
-      border-bottom: 1px solid rgba(255,255,255,0.07);
-      transition: box-shadow var(--t);
-    }
-    #nav.sd { box-shadow: 0 4px 20px rgba(0,0,0,0.25); }
-    .nav-wrap {
-      display: flex; align-items: center;
-      justify-content: space-between;
-      height: 64px; gap: 20px;
-    }
-    .nav-logo { display: flex; align-items: center; gap: 10px; }
-    .nav-logo img { height: 36px; background: #fff; border-radius: 5px; padding: 2px 5px; }
-    .nav-logo-text { font-family: var(--font-display); font-size: 1.05rem; font-weight: 800; color: #fff; letter-spacing: 0.01em; line-height: 1.1; }
-    .nav-logo-text small { display: block; font-size: 0.6rem; font-weight: 500; color: rgba(255,255,255,0.4); letter-spacing: 0.12em; text-transform: uppercase; }
-    .nav-links { display: flex; align-items: center; gap: 2px; list-style: none; }
-    .nav-links a { color: rgba(255,255,255,0.7); font-size: 0.83rem; font-weight: 500; padding: 7px 13px; border-radius: var(--radius-sm); transition: all var(--t); }
-    .nav-links a:hover { color: #fff; background: rgba(255,255,255,0.08); }
-    .nav-right { display: flex; align-items: center; gap: 12px; }
-    .nav-tel { color: rgba(255,255,255,0.65); font-size: 0.8rem; font-weight: 500; display: flex; align-items: center; gap: 5px; }
-    .nav-tel span { color: var(--celeste); font-weight: 600; }
-    .hamburger { display: none; flex-direction: column; gap: 5px; padding: 4px; cursor: pointer; }
-    .hamburger span { display: block; width: 22px; height: 2px; background: #fff; border-radius: 2px; transition: all var(--t); }
+    /* CONDS */
+    #conds{background:var(--navy);padding:60px 0;position:relative;overflow:hidden}
+    #conds::before{content:'';position:absolute;top:-60%;left:50%;transform:translateX(-50%);width:700px;height:700px;background:radial-gradient(circle,rgba(22,86,193,.15) 0%,transparent 65%);border-radius:50%;pointer-events:none}
+    .cdg{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;position:relative}
+    .cd{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:var(--rl);padding:32px 24px;text-align:center;transition:all var(--t)}
+    .cd:hover{background:rgba(22,86,193,.15);border-color:rgba(22,86,193,.35)}
+    .cdi{font-size:2.5rem;margin-bottom:14px}
+    .cdt{font-size:.85rem;font-weight:700;color:#fff;margin-bottom:6px;text-transform:uppercase;letter-spacing:.04em}
+    .cdv{font-family:var(--fd);font-size:1.7rem;font-weight:900;color:var(--celeste);margin-bottom:8px;line-height:1}
+    .cdd{font-size:.78rem;color:rgba(255,255,255,.48);line-height:1.6}
 
-    /* ══════════════════════════════════════════
-       HERO
-    ══════════════════════════════════════════ */
-    #hero {
-      min-height: 100vh; background: var(--navy); display: flex; align-items: center;
-      position: relative; overflow: hidden; padding: 0;
-    }
-    .hero-glow1 { position: absolute; top: -15%; right: -10%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(22,86,193,0.25) 0%, transparent 70%); border-radius: 50%; pointer-events: none; }
-    .hero-glow2 { position: absolute; bottom: -15%; left: -8%;  width: 450px; height: 450px; background: radial-gradient(circle, rgba(22,86,193,0.12) 0%, transparent 70%); border-radius: 50%; pointer-events: none; }
-    .hero-grid-bg { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px), linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px); background-size: 50px 50px; pointer-events: none; }
-    .hero-inner { position: relative; z-index: 2; width: 100%; padding: 120px 0 80px; }
-    .hero-layout { display: grid; grid-template-columns: 1.1fr 1fr; align-items: center; gap: 60px; }
-    .hero-eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 22px; }
-    .hero-badge-imp { background: var(--red); color: #fff; font-size: 0.65rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px; border-radius: 4px; }
-    .hero-years { color: rgba(255,255,255,0.5); font-size: 0.8rem; font-weight: 500; }
-    h1.hero-title {
-      font-family: var(--font-display);
-      font-size: clamp(2.8rem, 5vw, 4.5rem);
-      font-weight: 900; line-height: 0.97;
-      color: #fff; letter-spacing: -0.01em; margin-bottom: 20px;
-    }
-    h1.hero-title .hl { color: var(--celeste); }
-    h1.hero-title .sm { display: block; font-size: 0.4em; font-weight: 600; color: rgba(255,255,255,0.38); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 6px; }
-    .hero-desc { color: rgba(255,255,255,0.62); font-size: 1rem; line-height: 1.75; max-width: 460px; margin-bottom: 32px; }
-    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 44px; }
-    .hero-stats { display: flex; gap: 28px; padding-top: 28px; border-top: 1px solid rgba(255,255,255,0.1); }
-    .stat-n { font-family: var(--font-display); font-size: 1.9rem; font-weight: 900; color: var(--celeste); line-height: 1; margin-bottom: 3px; }
-    .stat-l { font-size: 0.7rem; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
-    /* Hero right */
-    .hero-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .hcard {
-      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.09);
-      border-radius: var(--radius-lg); padding: 20px; transition: all var(--t);
-    }
-    .hcard:hover { background: rgba(255,255,255,0.09); border-color: rgba(22,86,193,0.4); transform: translateY(-2px); }
-    .hcard.wide { grid-column: span 2; display: flex; align-items: center; gap: 14px; background: linear-gradient(135deg, rgba(22,86,193,0.2), rgba(22,86,193,0.05)); border-color: rgba(22,86,193,0.25); }
-    .hcard-ic { font-size: 2rem; margin-bottom: 10px; }
-    .hcard.wide .hcard-ic { margin-bottom: 0; font-size: 2.2rem; flex-shrink: 0; }
-    .hcard-l { font-size: 0.65rem; color: var(--celeste); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 3px; }
-    .hcard-v { font-size: 0.95rem; font-weight: 700; color: #fff; }
-    .hcard-s { font-size: 0.75rem; color: rgba(255,255,255,0.4); margin-top: 2px; }
+    /* CONTACT */
+    #contact{background:#fff}
+    .ctl{display:grid;grid-template-columns:1fr 1.15fr;gap:72px;align-items:start}
+    .cbs{margin-top:28px;display:flex;flex-direction:column;gap:16px}
+    .cb{display:flex;align-items:flex-start;gap:14px}
+    .cbi{flex-shrink:0;width:42px;height:42px;background:rgba(22,86,193,.08);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+    .cbl{font-size:.7rem;color:var(--gray-400);text-transform:uppercase;letter-spacing:.08em;font-weight:600;margin-bottom:2px}
+    .cbv{font-size:.875rem;font-weight:600;color:var(--navy)}
+    .cbv a{color:var(--blue)}
+    .fb{background:var(--gray-50);border-radius:var(--rxl);padding:36px;border:1px solid var(--gray-200)}
+    .fb h3{font-size:1.1rem;font-weight:800;color:var(--navy);margin-bottom:4px}
+    .fsub{font-size:.8rem;color:var(--gray-400);margin-bottom:24px}
+    .fr2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .fg{margin-bottom:14px}
+    .fg label{display:block;font-size:.75rem;font-weight:700;color:var(--navy);margin-bottom:5px}
+    .fg input,.fg select,.fg textarea{width:100%;padding:11px 13px;border:1.5px solid var(--gray-200);border-radius:var(--r);font-family:var(--fb);font-size:.875rem;color:var(--text);background:#fff;outline:none;transition:border-color var(--t),box-shadow var(--t)}
+    .fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(22,86,193,.1)}
+    .fg textarea{resize:vertical;min-height:90px}
+    .fnote{font-size:.7rem;color:var(--gray-400);margin-top:10px;line-height:1.5}
+    .fnote strong{color:var(--navy)}
+    .fok{display:none;text-align:center;padding:36px 16px}
+    .fok .oi{font-size:2.8rem;margin-bottom:14px}
+    .fok h3{font-size:1.2rem;font-weight:800;color:var(--navy);margin-bottom:8px}
+    .fok p{color:var(--gray-600);font-size:.85rem;line-height:1.6}
 
-    /* ══════════════════════════════════════════
-       TICKER
-    ══════════════════════════════════════════ */
-    .ticker { background: var(--blue); padding: 9px 0; overflow: hidden; }
-    .ticker-track { display: flex; gap: 56px; animation: ticker 32s linear infinite; white-space: nowrap; }
-    .ticker-item { display: flex; align-items: center; gap: 8px; color: #fff; font-size: 0.8rem; font-weight: 600; flex-shrink: 0; }
-    .ticker-sep { width: 4px; height: 4px; background: rgba(255,255,255,0.4); border-radius: 50%; }
-    @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    /* FOOTER */
+    footer{background:var(--navy);padding:52px 0 28px}
+    .fg2{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
+    .fll{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+    .fll img{height:34px;background:#fff;border-radius:4px;padding:2px 5px}
+    .flt{font-family:var(--fd);font-size:1rem;font-weight:800;color:#fff;line-height:1.1}
+    .flt small{display:block;font-size:.58rem;color:rgba(255,255,255,.35);letter-spacing:.12em;text-transform:uppercase;font-weight:500}
+    .fld{font-size:.8rem;color:rgba(255,255,255,.45);line-height:1.7;max-width:240px;margin-bottom:18px}
+    .fls{display:flex;gap:8px}
+    .fls a{width:34px;height:34px;background:rgba(255,255,255,.07);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.9rem;transition:background var(--t)}
+    .fls a:hover{background:var(--blue)}
+    .fcol h4{font-size:.75rem;font-weight:800;color:#fff;text-transform:uppercase;letter-spacing:.1em;margin-bottom:16px}
+    .fcol ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+    .fcol ul a{font-size:.8rem;color:rgba(255,255,255,.5);transition:color var(--t)}
+    .fcol ul a:hover{color:var(--celeste)}
+    .fci2{display:flex;gap:9px;font-size:.78rem;color:rgba(255,255,255,.5);margin-bottom:10px}
+    .fci2 a{color:rgba(255,255,255,.5);transition:color var(--t)}
+    .fci2 a:hover{color:var(--celeste)}
+    .fbot{border-top:1px solid rgba(255,255,255,.07);padding-top:22px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+    .fbot p{font-size:.75rem;color:rgba(255,255,255,.35)}
+    .wa{position:fixed;bottom:24px;right:24px;z-index:999;background:#22C55E;color:#fff;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 4px 20px rgba(34,197,94,.45);transition:all var(--t);animation:wap 2.5s infinite}
+    .wa:hover{transform:scale(1.1)}
+    @keyframes wap{0%,100%{box-shadow:0 4px 20px rgba(34,197,94,.45)}50%{box-shadow:0 4px 32px rgba(34,197,94,.7)}}
 
-    /* ══════════════════════════════════════════
-       WHY US
-    ══════════════════════════════════════════ */
-    #why { background: var(--gray-50); }
-    .why-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
-    .why-feats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 36px; }
-    .feat {
-      background: #fff; border-radius: var(--radius-lg); padding: 22px;
-      box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200);
-      transition: all var(--t);
-    }
-    .feat:hover { border-color: var(--blue); box-shadow: var(--shadow-md); transform: translateY(-3px); }
-    .feat-ic { font-size: 1.6rem; margin-bottom: 10px; }
-    .feat-t { font-size: 0.875rem; font-weight: 700; color: var(--navy); margin-bottom: 5px; }
-    .feat-d { font-size: 0.78rem; color: var(--gray-600); line-height: 1.55; }
-    .why-card {
-      background: var(--navy); border-radius: var(--radius-xl); padding: 44px;
-      color: #fff; position: relative; overflow: hidden;
-    }
-    .why-card::before { content: ''; position: absolute; top: -40%; right: -20%; width: 320px; height: 320px; background: radial-gradient(circle, rgba(22,86,193,0.28) 0%, transparent 68%); border-radius: 50%; }
-    .why-n { font-family: var(--font-display); font-size: 5rem; font-weight: 900; color: var(--celeste); line-height: 1; margin-bottom: 6px; position: relative; }
-    .why-nl { font-size: 1rem; font-weight: 700; margin-bottom: 14px; position: relative; }
-    .why-nd { font-size: 0.85rem; color: rgba(255,255,255,0.55); line-height: 1.7; position: relative; }
-    .why-list { margin-top: 28px; display: flex; flex-direction: column; gap: 10px; position: relative; }
-    .why-li { display: flex; align-items: center; gap: 10px; font-size: 0.85rem; color: rgba(255,255,255,0.8); }
-    .why-li::before { content: '✓'; flex-shrink: 0; width: 20px; height: 20px; background: var(--blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 800; }
-
-    /* ══════════════════════════════════════════
-       CATEGORIES
-    ══════════════════════════════════════════ */
-    #cats { background: #fff; }
-    .cats-head { text-align: center; margin-bottom: 40px; }
-    .cats-head .sub { margin: 0 auto; }
-    .cats-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 12px; }
-    .cat-card {
-      background: var(--gray-50); border: 2px solid var(--gray-200);
-      border-radius: var(--radius-lg); padding: 24px 12px; text-align: center;
-      cursor: pointer; transition: all var(--t);
-    }
-    .cat-card:hover, .cat-card.active { background: var(--navy); border-color: var(--blue); transform: translateY(-3px); box-shadow: var(--shadow-md); }
-    .cat-card:hover .cat-ic, .cat-card.active .cat-ic { transform: scale(1.1); }
-    .cat-card:hover .cat-nm, .cat-card.active .cat-nm { color: #fff; }
-    .cat-card:hover .cat-ct, .cat-card.active .cat-ct { color: var(--celeste); }
-    .cat-ic { font-size: 2rem; margin-bottom: 10px; transition: transform var(--t); }
-    .cat-nm { font-size: 0.72rem; font-weight: 700; color: var(--navy); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 3px; }
-    .cat-ct { font-size: 0.68rem; color: var(--gray-400); font-weight: 500; }
-
-    /* ══════════════════════════════════════════
-       PRODUCTS
-    ══════════════════════════════════════════ */
-    #prods { background: var(--gray-100); padding: 60px 0 80px; }
-    .prods-top { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 28px; gap: 20px; flex-wrap: wrap; }
-    .search-box { position: relative; }
-    .search-box input {
-      padding: 10px 14px 10px 38px; border: 2px solid var(--gray-200);
-      border-radius: var(--radius); font-family: var(--font-body); font-size: 0.85rem;
-      color: var(--text); background: #fff; outline: none; width: 260px;
-      transition: border-color var(--t), box-shadow var(--t);
-    }
-    .search-box input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(22,86,193,0.1); }
-    .search-box svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--gray-400); }
-    .filter-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
-    .fbtn {
-      padding: 7px 16px; border-radius: 999px; font-size: 0.78rem; font-weight: 600;
-      border: 1.5px solid var(--gray-200); background: #fff; color: var(--gray-600);
-      cursor: pointer; transition: all var(--t); font-family: var(--font-body);
-    }
-    .fbtn:hover { border-color: var(--blue); color: var(--blue); }
-    .fbtn.active { background: var(--blue); border-color: var(--blue); color: #fff; }
-
-    /* Product Grid */
-    .pgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 18px; }
-    .pcard {
-      background: #fff; border-radius: var(--radius-lg); overflow: hidden;
-      box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200);
-      transition: all var(--t); position: relative; animation: fadeUp 0.3s ease;
-    }
-    .pcard:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--blue); }
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-    /* Badge */
-    .pbadge { position: absolute; top: 10px; left: 10px; z-index: 3; font-size: 0.6rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; padding: 3px 8px; border-radius: 4px; color: #fff; }
-    .pbadge.nuevo { background: var(--blue); }
-    .pbadge.sinstock { background: var(--gray-400); }
-
-    /* Image */
-    .pimg {
-      height: 170px; background: var(--gray-50); overflow: hidden;
-      display: flex; align-items: center; justify-content: center; position: relative;
-    }
-    .pimg img { width: 100%; height: 100%; object-fit: contain; padding: 12px; transition: transform 0.35s ease; }
-    .pcard:hover .pimg img { transform: scale(1.06); }
-    .pimg-fallback { font-size: 3.5rem; color: var(--gray-400); }
-
-    /* Body */
-    .pbody { padding: 14px; }
-    .pcat { font-size: 0.62rem; font-weight: 700; color: var(--blue); text-transform: uppercase; letter-spacing: 0.09em; margin-bottom: 4px; }
-    .pname { font-size: 0.875rem; font-weight: 700; color: var(--navy); margin-bottom: 3px; line-height: 1.3; }
-    .part { font-size: 0.7rem; color: var(--gray-400); font-weight: 500; margin-bottom: 5px; }
-    .pdesc { font-size: 0.74rem; color: var(--gray-600); line-height: 1.5; margin-bottom: 10px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-    .ppres { display: inline-block; font-size: 0.67rem; font-weight: 600; color: var(--blue); background: rgba(22,86,193,0.08); padding: 2px 8px; border-radius: 4px; margin-bottom: 10px; }
-    .pfooter { display: flex; align-items: center; justify-content: space-between; padding-top: 10px; border-top: 1px solid var(--gray-100); }
-    .pprice { font-family: var(--font-display); font-size: 1.25rem; font-weight: 800; color: var(--red); line-height: 1; }
-    .pprice .pu { font-family: var(--font-body); font-size: 0.67rem; font-weight: 500; color: var(--gray-400); display: block; margin-top: 2px; }
-    .pwsp { background: #22C55E; color: #fff; border: none; width: 34px; height: 34px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; transition: all var(--t); flex-shrink: 0; }
-    .pwsp:hover { background: #16A34A; transform: scale(1.08); }
-    .psinstock { font-size: 0.78rem; font-weight: 600; color: var(--gray-400); }
-    .no-res { grid-column: 1/-1; text-align: center; padding: 60px; color: var(--gray-400); }
-    .no-res .ni { font-size: 2.5rem; margin-bottom: 10px; }
-
-    /* ══════════════════════════════════════════
-       CONDITIONS
-    ══════════════════════════════════════════ */
-    #conds { background: var(--navy); padding: 60px 0; position: relative; overflow: hidden; }
-    #conds::before { content: ''; position: absolute; top: -60%; left: 50%; transform: translateX(-50%); width: 700px; height: 700px; background: radial-gradient(circle, rgba(22,86,193,0.15) 0%, transparent 65%); border-radius: 50%; pointer-events: none; }
-    .conds-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; position: relative; }
-    .cond {
-      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.09);
-      border-radius: var(--radius-lg); padding: 32px 24px; text-align: center; transition: all var(--t);
-    }
-    .cond:hover { background: rgba(22,86,193,0.15); border-color: rgba(22,86,193,0.35); }
-    .cond-ic { font-size: 2.5rem; margin-bottom: 14px; }
-    .cond-t { font-size: 0.85rem; font-weight: 700; color: #fff; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.04em; }
-    .cond-v { font-family: var(--font-display); font-size: 1.7rem; font-weight: 900; color: var(--celeste); margin-bottom: 8px; line-height: 1; }
-    .cond-d { font-size: 0.78rem; color: rgba(255,255,255,0.48); line-height: 1.6; }
-
-    /* ══════════════════════════════════════════
-       CONTACT
-    ══════════════════════════════════════════ */
-    #contact { background: #fff; }
-    .contact-layout { display: grid; grid-template-columns: 1fr 1.15fr; gap: 72px; align-items: start; }
-    .cbullets { margin-top: 28px; display: flex; flex-direction: column; gap: 16px; }
-    .cbullet { display: flex; align-items: flex-start; gap: 14px; }
-    .cbullet-ic { flex-shrink: 0; width: 42px; height: 42px; background: rgba(22,86,193,0.08); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
-    .cbullet-l { font-size: 0.7rem; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; margin-bottom: 2px; }
-    .cbullet-v { font-size: 0.875rem; font-weight: 600; color: var(--navy); }
-    .cbullet-v a { color: var(--blue); }
-
-    /* Form */
-    .form-box { background: var(--gray-50); border-radius: var(--radius-xl); padding: 36px; border: 1px solid var(--gray-200); }
-    .form-box h3 { font-size: 1.1rem; font-weight: 800; color: var(--navy); margin-bottom: 4px; }
-    .form-box .form-sub { font-size: 0.8rem; color: var(--gray-400); margin-bottom: 24px; }
-    .form-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .fg { margin-bottom: 14px; }
-    .fg label { display: block; font-size: 0.75rem; font-weight: 700; color: var(--navy); margin-bottom: 5px; }
-    .fg input, .fg select, .fg textarea {
-      width: 100%; padding: 11px 13px;
-      border: 1.5px solid var(--gray-200); border-radius: var(--radius);
-      font-family: var(--font-body); font-size: 0.875rem; color: var(--text);
-      background: #fff; outline: none; transition: border-color var(--t), box-shadow var(--t);
-    }
-    .fg input:focus, .fg select:focus, .fg textarea:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(22,86,193,0.1); }
-    .fg textarea { resize: vertical; min-height: 90px; }
-    .form-note { font-size: 0.7rem; color: var(--gray-400); margin-top: 10px; line-height: 1.5; }
-    .form-note strong { color: var(--navy); }
-    .form-ok { display: none; text-align: center; padding: 36px 16px; }
-    .form-ok .oi { font-size: 2.8rem; margin-bottom: 14px; }
-    .form-ok h3 { font-size: 1.2rem; font-weight: 800; color: var(--navy); margin-bottom: 8px; }
-    .form-ok p { color: var(--gray-600); font-size: 0.85rem; line-height: 1.6; }
-
-    /* ══════════════════════════════════════════
-       FOOTER
-    ══════════════════════════════════════════ */
-    footer { background: var(--navy); padding: 52px 0 28px; }
-    .footer-grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
-    .fl-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
-    .fl-logo img { height: 34px; background: #fff; border-radius: 4px; padding: 2px 5px; }
-    .fl-logo-text { font-family: var(--font-display); font-size: 1rem; font-weight: 800; color: #fff; line-height: 1.1; }
-    .fl-logo-text small { display: block; font-size: 0.58rem; color: rgba(255,255,255,0.35); letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; }
-    .fl-desc { font-size: 0.8rem; color: rgba(255,255,255,0.45); line-height: 1.7; max-width: 240px; margin-bottom: 18px; }
-    .fl-soc { display: flex; gap: 8px; }
-    .fl-soc a { width: 34px; height: 34px; background: rgba(255,255,255,0.07); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; transition: background var(--t); }
-    .fl-soc a:hover { background: var(--blue); }
-    .footer-col h4 { font-size: 0.75rem; font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 16px; }
-    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
-    .footer-col ul a { font-size: 0.8rem; color: rgba(255,255,255,0.5); transition: color var(--t); }
-    .footer-col ul a:hover { color: var(--celeste); }
-    .fc-item { display: flex; gap: 9px; font-size: 0.78rem; color: rgba(255,255,255,0.5); margin-bottom: 10px; }
-    .fc-item a { color: rgba(255,255,255,0.5); transition: color var(--t); }
-    .fc-item a:hover { color: var(--celeste); }
-    .footer-bot { border-top: 1px solid rgba(255,255,255,0.07); padding-top: 22px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
-    .footer-bot p { font-size: 0.75rem; color: rgba(255,255,255,0.35); }
-
-    /* WA float */
-    .wa-btn {
-      position: fixed; bottom: 24px; right: 24px; z-index: 999;
-      background: #22C55E; color: #fff; width: 56px; height: 56px;
-      border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      font-size: 1.5rem; box-shadow: 0 4px 20px rgba(34,197,94,0.45);
-      transition: all var(--t); animation: waPulse 2.5s infinite;
-    }
-    .wa-btn:hover { transform: scale(1.1); }
-    @keyframes waPulse { 0%,100% { box-shadow: 0 4px 20px rgba(34,197,94,0.45); } 50% { box-shadow: 0 4px 32px rgba(34,197,94,0.7); } }
-
-    /* ══════════════════════════════════════════
-       RESPONSIVE
-    ══════════════════════════════════════════ */
-    @media (max-width: 1100px) {
-      .hero-layout { grid-template-columns: 1fr; }
-      .hero-cards { display: none; }
-      .why-layout { grid-template-columns: 1fr; }
-      .cats-grid { grid-template-columns: repeat(4, 1fr); }
-      .contact-layout { grid-template-columns: 1fr; gap: 40px; }
-      .footer-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
-      .conds-grid { grid-template-columns: 1fr; }
-    }
-    @media (max-width: 768px) {
-      section { padding: 56px 0; }
-      .nav-links { display: none; }
-      .hamburger { display: flex; }
-      .nav-tel { display: none; }
-      .hero-actions { flex-direction: column; }
-      .hero-stats { gap: 18px; }
-      .why-feats { grid-template-columns: 1fr; }
-      .cats-grid { grid-template-columns: repeat(3, 1fr); }
-      .form-row2 { grid-template-columns: 1fr; }
-      .footer-grid { grid-template-columns: 1fr; gap: 24px; }
-      .footer-bot { flex-direction: column; text-align: center; }
-      .prods-top { flex-direction: column; align-items: flex-start; }
-      .search-box input { width: 100%; }
-    }
-    #nav.open .nav-links { display: flex; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: var(--navy); padding: 12px; border-top: 1px solid rgba(255,255,255,0.07); gap: 2px; }
-    #nav.open .nav-links a { display: block; padding: 10px 14px; }
+    @media(max-width:1100px){.hl2{grid-template-columns:1fr}.hcards{display:none}.wl{grid-template-columns:1fr}.ctl{grid-template-columns:1fr;gap:40px}.fg2{grid-template-columns:1fr 1fr;gap:28px}.cdg{grid-template-columns:1fr}.cg{grid-template-columns:repeat(4,1fr)}}
+    @media(max-width:768px){section{padding:56px 0}.nl{display:none}.hbg{display:flex}.ntel{display:none}.ha{flex-direction:column}.hst{gap:18px}.wf{grid-template-columns:1fr}.cg{grid-template-columns:repeat(3,1fr)}.fr2{grid-template-columns:1fr}.fg2{grid-template-columns:1fr;gap:24px}.fbot{flex-direction:column;text-align:center}.pt{flex-direction:column;align-items:flex-start}.sb input{width:100%}}
+    #nav.open .nl{display:flex;flex-direction:column;position:absolute;top:64px;left:0;right:0;background:var(--navy);padding:12px;border-top:1px solid rgba(255,255,255,.07);gap:2px}
+    #nav.open .nl a{display:block;padding:10px 14px}
   </style>
 </head>
 <body>
 
-<!-- ─────────────── NAVBAR ─────────────── -->
 <nav id="nav">
   <div class="container">
-    <div class="nav-wrap">
-      <a href="#hero" class="nav-logo">
+    <div class="nw">
+      <a href="#hero" class="nl-logo">
         <img src="logo.png" alt="El Diamante" />
-        <div class="nav-logo-text">El Diamante<small>Importación</small></div>
+        <div class="nl-logo-t">El Diamante<small>Importación</small></div>
       </a>
-      <ul class="nav-links" id="navLinks">
+      <ul class="nl" id="navLinks">
         <li><a href="#why">Por qué elegirnos</a></li>
         <li><a href="#cats">Categorías</a></li>
         <li><a href="#prods">Catálogo</a></li>
         <li><a href="#conds">Condiciones</a></li>
         <li><a href="#contact">Contacto</a></li>
       </ul>
-      <div class="nav-right">
-        <span class="nav-tel">📞 <span>341 352-3441</span></span>
-        <a href="#contact" class="btn btn-primary btn-sm">Consultar precios</a>
+      <div class="nr">
+        <span class="ntel">📞 <span>341 352-3441</span></span>
+        <a href="#contact" class="btn btn-p btn-sm">Consultar precios</a>
       </div>
-      <div class="hamburger" onclick="this.closest('#nav').classList.toggle('open')">
+      <div class="hbg" onclick="this.closest('#nav').classList.toggle('open')">
         <span></span><span></span><span></span>
       </div>
     </div>
   </div>
 </nav>
 
-<!-- ─────────────── HERO ─────────────── -->
 <section id="hero">
-  <div class="hero-glow1"></div>
-  <div class="hero-glow2"></div>
-  <div class="hero-grid-bg"></div>
-  <div class="hero-inner container">
-    <div class="hero-layout">
+  <div class="hg1"></div><div class="hg2"></div><div class="hgb"></div>
+  <div class="hi container">
+    <div class="hl2">
       <div>
-        <div class="hero-eyebrow">
-          <span class="hero-badge-imp">Importación Directa</span>
-          <span class="hero-years">Más de 25 años en el rubro</span>
+        <div class="hey">
+          <span class="himp">Importación Directa</span>
+          <span class="hyr">Más de 25 años en el rubro</span>
         </div>
-        <h1 class="hero-title">
-          Distribución<br><span class="hl">Mayorista</span>
-          <span class="sm">Iluminación · Electricidad · Ferretería · Electrónica</span>
-        </h1>
-        <p class="hero-desc">
-          Proveemos a casas de iluminación y electricidad de todo el país.
-          Importación directa, stock permanente y envíos a todo Argentina.
-        </p>
-        <div class="hero-actions">
-          <a href="#contact" class="btn btn-primary btn-lg">💼 Quiero ser distribuidor</a>
-          <a href="#prods" class="btn btn-outline btn-lg">Ver catálogo completo</a>
+        <h1 class="ht">Distribución<br><span class="hl">Mayorista</span><span class="sm">Iluminación · Electricidad · Ferretería · Electrónica</span></h1>
+        <p class="hd">Proveemos a casas de iluminación y electricidad de todo el país. Importación directa, stock permanente y envíos a todo Argentina.</p>
+        <div class="ha">
+          <a href="#contact" class="btn btn-p btn-lg">💼 Quiero ser distribuidor</a>
+          <a href="#prods" class="btn btn-o btn-lg">Ver catálogo completo</a>
         </div>
-        <div class="hero-stats">
-          <div><div class="stat-n">25+</div><div class="stat-l">Años de experiencia</div></div>
-          <div><div class="stat-n">+200</div><div class="stat-l">Productos</div></div>
-          <div><div class="stat-n">Todo AR</div><div class="stat-l">Envíos nacionales</div></div>
+        <div class="hst">
+          <div><div class="sn">25+</div><div class="sl">Años de experiencia</div></div>
+          <div><div class="sn" id="heroCount">+90</div><div class="sl">Productos</div></div>
+          <div><div class="sn">Todo AR</div><div class="sl">Envíos nacionales</div></div>
         </div>
       </div>
-      <div class="hero-cards">
-        <div class="hcard wide">
-          <div class="hcard-ic">🏭</div>
-          <div><div class="hcard-l">Importación directa</div><div class="hcard-v">Sin intermediarios — mejores precios</div><div class="hcard-s">Comprás directo al importador mayorista</div></div>
-        </div>
-        <div class="hcard"><div class="hcard-ic">🚚</div><div class="hcard-l">Envíos</div><div class="hcard-v">Todo el país</div><div class="hcard-s">Desde Rosario, Santa Fe</div></div>
-        <div class="hcard"><div class="hcard-ic">📦</div><div class="hcard-l">Compra mínima</div><div class="hcard-v">$100.000</div><div class="hcard-s">Exclusivo mayorista</div></div>
-        <div class="hcard"><div class="hcard-ic">✨</div><div class="hcard-l">Nuevos ingresos</div><div class="hcard-v">Mayo / Junio 2026</div><div class="hcard-s">Catálogo 2026 disponible</div></div>
-        <div class="hcard"><div class="hcard-ic">💡</div><div class="hcard-l">Categorías</div><div class="hcard-v">LED · Electricidad</div><div class="hcard-s">Ferretería · Electrónica</div></div>
+      <div class="hcards">
+        <div class="hc w"><div class="hci">🏭</div><div><div class="hcl">Importación directa</div><div class="hcv">Sin intermediarios — mejores precios</div><div class="hcs">Comprás directo al importador mayorista</div></div></div>
+        <div class="hc"><div class="hci">🚚</div><div class="hcl">Envíos</div><div class="hcv">Todo el país</div><div class="hcs">Desde Rosario, Santa Fe</div></div>
+        <div class="hc"><div class="hci">📦</div><div class="hcl">Compra mínima</div><div class="hcv">$100.000</div><div class="hcs">Exclusivo mayorista</div></div>
+        <div class="hc"><div class="hci">✨</div><div class="hcl">Nuevos ingresos</div><div class="hcv">Mayo / Junio 2026</div><div class="hcs">Catálogo 2026 disponible</div></div>
+        <div class="hc"><div class="hci">💡</div><div class="hcl">Categorías</div><div class="hcv">LED · Electricidad</div><div class="hcs">Ferretería · Electrónica</div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─────────────── TICKER ─────────────── -->
-<div class="ticker">
-  <div class="ticker-track" id="tickerTrack"></div>
-</div>
+<div class="ticker"><div class="tt" id="tickerTrack"></div></div>
 
-<!-- ─────────────── WHY ─────────────── -->
 <section id="why">
   <div class="container">
-    <div class="why-layout">
+    <div class="wl">
       <div>
         <span class="tag">Por qué elegirnos</span>
         <h2 class="sh">Tu proveedor mayorista de <span>confianza</span></h2>
         <p class="sub">Más de 25 años distribuyendo a casas de iluminación y electricidad. Importación directa con precios reales para tu negocio.</p>
-        <div class="why-feats">
-          <div class="feat reveal"><div class="feat-ic">🏭</div><div class="feat-t">Importación Directa</div><div class="feat-d">Sin intermediarios. Comprás directo al importador con precios mayoristas reales.</div></div>
-          <div class="feat reveal"><div class="feat-ic">📦</div><div class="feat-t">Stock Permanente</div><div class="feat-d">Mantenemos stock de todos los productos para entrega inmediata.</div></div>
-          <div class="feat reveal"><div class="feat-ic">🚚</div><div class="feat-t">Envíos Nacionales</div><div class="feat-d">Despachamos a todo el país desde Rosario, Santa Fe.</div></div>
-          <div class="feat reveal"><div class="feat-ic">💬</div><div class="feat-t">Atención Directa</div><div class="feat-d">Asesoramiento personalizado para armar tu pedido y mix ideal.</div></div>
+        <div class="wf">
+          <div class="fc reveal"><div class="fci">🏭</div><div class="fct">Importación Directa</div><div class="fcd">Sin intermediarios. Comprás directo al importador con precios mayoristas reales.</div></div>
+          <div class="fc reveal"><div class="fci">📦</div><div class="fct">Stock Permanente</div><div class="fcd">Mantenemos stock de todos los productos para entrega inmediata.</div></div>
+          <div class="fc reveal"><div class="fci">🚚</div><div class="fct">Envíos Nacionales</div><div class="fcd">Despachamos a todo el país desde Rosario, Santa Fe.</div></div>
+          <div class="fc reveal"><div class="fci">💬</div><div class="fct">Atención Directa</div><div class="fcd">Asesoramiento personalizado para armar tu pedido y mix ideal.</div></div>
         </div>
       </div>
       <div class="reveal">
-        <div class="why-card">
-          <div class="why-n">25+</div>
-          <div class="why-nl">años distribuyendo en todo el país</div>
-          <p class="why-nd">Desde Rosario llegamos a cada rincón de Argentina. Nuestros clientes son casas de iluminación y electricidad que nos eligen como su proveedor principal de importación directa.</p>
-          <div class="why-list">
-            <div class="why-li">Productos importados con garantía</div>
-            <div class="why-li">Catálogo actualizado Mayo/Junio 2026</div>
-            <div class="why-li">Precios por volumen y bulto cerrado</div>
-            <div class="why-li">+90 referencias en catálogo activo</div>
-            <div class="why-li">Nuevos ingresos permanentes</div>
+        <div class="wc">
+          <div class="wn">25+</div>
+          <div class="wnl">años distribuyendo en todo el país</div>
+          <p class="wnd">Desde Rosario llegamos a cada rincón de Argentina. Nuestros clientes son casas de iluminación y electricidad que nos eligen como su proveedor principal de importación directa.</p>
+          <div class="wli">
+            <div>Productos importados con garantía</div>
+            <div>Catálogo actualizado Mayo/Junio 2026</div>
+            <div>Precios por volumen y bulto cerrado</div>
+            <div>Nuevos ingresos permanentes</div>
           </div>
         </div>
       </div>
@@ -498,90 +320,85 @@
   </div>
 </section>
 
-<!-- ─────────────── CATEGORIES ─────────────── -->
 <section id="cats">
   <div class="container">
-    <div class="cats-head">
+    <div class="ch">
       <span class="tag">Catálogo 2026</span>
       <h2 class="sh">Todas las <span>categorías</span></h2>
       <p class="sub">Seleccioná una categoría para filtrar el catálogo de productos.</p>
     </div>
-    <div class="cats-grid" id="catsGrid"></div>
+    <div class="cg" id="catsGrid"></div>
   </div>
 </section>
 
-<!-- ─────────────── PRODUCTS ─────────────── -->
 <section id="prods">
   <div class="container">
-    <div class="prods-top">
+    <div class="pt">
       <div>
         <span class="tag">Nuevos Ingresos</span>
-        <h2 class="sh" style="margin-bottom:0;">Catálogo <span>2026</span></h2>
+        <h2 class="sh" style="margin-bottom:0">Catálogo <span>2026</span></h2>
       </div>
-      <div class="search-box">
+      <div class="sb">
         <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        <input type="search" id="searchInput" placeholder="Buscar por nombre o artículo…" oninput="render()" />
+        <input type="search" id="searchInput" placeholder="Buscar por nombre o artículo…" />
       </div>
     </div>
-    <div class="filter-bar" id="filterBar"></div>
-    <div class="pgrid" id="pgrid"></div>
+    <div class="fb2" id="filterBar"></div>
+    <div class="pg" id="pgrid">
+      <div class="loading"><div class="spinner"></div><p>Cargando productos…</p></div>
+    </div>
   </div>
 </section>
 
-<!-- ─────────────── CONDITIONS ─────────────── -->
 <section id="conds">
   <div class="container">
-    <div style="text-align:center;margin-bottom:44px;position:relative;">
-      <span class="tag" style="background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.65);">Condiciones de compra</span>
-      <h2 style="font-family:var(--font-display);font-size:clamp(1.9rem,3vw,2.8rem);font-weight:800;color:#fff;margin-bottom:10px;letter-spacing:-0.01em;">Todo lo que necesitás saber</h2>
-      <p style="color:rgba(255,255,255,0.45);max-width:460px;margin:0 auto;font-size:0.9rem;line-height:1.7;">Operamos exclusivamente con distribuidores y casas de iluminación.</p>
+    <div style="text-align:center;margin-bottom:44px;position:relative">
+      <span class="tag" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.65)">Condiciones de compra</span>
+      <h2 style="font-family:var(--fd);font-size:clamp(1.9rem,3vw,2.8rem);font-weight:800;color:#fff;margin-bottom:10px">Todo lo que necesitás saber</h2>
+      <p style="color:rgba(255,255,255,.45);max-width:460px;margin:0 auto;font-size:.9rem;line-height:1.7">Operamos exclusivamente con distribuidores y casas de iluminación.</p>
     </div>
-    <div class="conds-grid">
-      <div class="cond reveal"><div class="cond-ic">💰</div><div class="cond-t">Compra Mínima</div><div class="cond-v">$100.000</div><div class="cond-d">Monto mínimo por pedido. Armá tu mix entre todas las categorías del catálogo.</div></div>
-      <div class="cond reveal"><div class="cond-ic">🚚</div><div class="cond-t">Envíos</div><div class="cond-v">Todo Argentina</div><div class="cond-d">Enviamos a todo el país desde Rosario, Santa Fe. Coordinamos flete al momento del pedido.</div></div>
-      <div class="cond reveal"><div class="cond-ic">📦</div><div class="cond-t">Bulto Cerrado</div><div class="cond-v">Mejor precio</div><div class="cond-d">Consultanos por compra en bulto cerrado para acceder a precios preferenciales por volumen.</div></div>
+    <div class="cdg">
+      <div class="cd reveal"><div class="cdi">💰</div><div class="cdt">Compra Mínima</div><div class="cdv">$100.000</div><div class="cdd">Monto mínimo por pedido. Armá tu mix entre todas las categorías del catálogo.</div></div>
+      <div class="cd reveal"><div class="cdi">🚚</div><div class="cdt">Envíos</div><div class="cdv">Todo Argentina</div><div class="cdd">Enviamos a todo el país desde Rosario, Santa Fe.</div></div>
+      <div class="cd reveal"><div class="cdi">📦</div><div class="cdt">Bulto Cerrado</div><div class="cdv">Mejor precio</div><div class="cdd">Consultanos por compra en bulto cerrado para acceder a precios preferenciales.</div></div>
     </div>
-    <div style="text-align:center;margin-top:36px;">
-      <a href="#contact" class="btn btn-primary btn-lg">💬 Consultar condiciones completas</a>
+    <div style="text-align:center;margin-top:36px">
+      <a href="#contact" class="btn btn-p btn-lg">💬 Consultar condiciones completas</a>
     </div>
   </div>
 </section>
 
-<!-- ─────────────── CONTACT ─────────────── -->
 <section id="contact">
   <div class="container">
-    <div class="contact-layout">
+    <div class="ctl">
       <div class="reveal">
         <span class="tag">Contacto</span>
         <h2 class="sh">Hablemos de <span>tu negocio</span></h2>
         <p class="sub">Si tenés una casa de iluminación o electricidad y buscás un proveedor mayorista, completá el formulario.</p>
-        <div class="cbullets">
-          <div class="cbullet"><div class="cbullet-ic">📞</div><div><div class="cbullet-l">WhatsApp / Teléfono</div><div class="cbullet-v"><a href="https://wa.me/5493413523441" target="_blank">341 352-3441</a></div></div></div>
-          <div class="cbullet"><div class="cbullet-ic">📧</div><div><div class="cbullet-l">Email</div><div class="cbullet-v"><a href="mailto:eldiamanteimportacion@gmail.com">eldiamanteimportacion@gmail.com</a></div></div></div>
-          <div class="cbullet"><div class="cbullet-ic">📍</div><div><div class="cbullet-l">Dirección</div><div class="cbullet-v">San Luis 1665 (Local 9), Rosario, Santa Fe</div></div></div>
-          <div class="cbullet"><div class="cbullet-ic">📸</div><div><div class="cbullet-l">Instagram</div><div class="cbullet-v"><a href="https://instagram.com/eldiamanteimportacion" target="_blank">@eldiamanteimportacion</a></div></div></div>
+        <div class="cbs">
+          <div class="cb"><div class="cbi">📞</div><div><div class="cbl">WhatsApp / Teléfono</div><div class="cbv"><a href="https://wa.me/5493413523441" target="_blank">341 352-3441</a></div></div></div>
+          <div class="cb"><div class="cbi">📧</div><div><div class="cbl">Email</div><div class="cbv"><a href="mailto:eldiamanteimportacion@gmail.com">eldiamanteimportacion@gmail.com</a></div></div></div>
+          <div class="cb"><div class="cbi">📍</div><div><div class="cbl">Dirección</div><div class="cbv">San Luis 1665 (Local 9), Rosario, Santa Fe</div></div></div>
+          <div class="cb"><div class="cbi">📸</div><div><div class="cbl">Instagram</div><div class="cbv"><a href="https://instagram.com/eldiamanteimportacion" target="_blank">@eldiamanteimportacion</a></div></div></div>
         </div>
-        <div style="margin-top:28px;">
-          <a href="https://wa.me/5493413523441?text=Hola!%20Quiero%20información%20sobre%20distribución%20mayorista" target="_blank" class="btn btn-wsp btn-lg">💬 Escribinos por WhatsApp</a>
-        </div>
+        <div style="margin-top:28px"><a href="https://wa.me/5493413523441?text=Hola!%20Quiero%20información%20sobre%20distribución%20mayorista" target="_blank" class="btn btn-w btn-lg">💬 Escribinos por WhatsApp</a></div>
       </div>
       <div class="reveal">
-        <div class="form-box">
+        <div class="fb">
           <div id="formContent">
             <h3>Solicitar información de precios</h3>
-            <p class="form-sub">Respondemos en menos de 24 horas hábiles</p>
+            <p class="fsub">Respondemos en menos de 24 horas hábiles</p>
             <form id="cform" onsubmit="submitForm(event)">
-              <div class="form-row2">
+              <div class="fr2">
                 <div class="fg"><label>Nombre *</label><input type="text" placeholder="Tu nombre" required /></div>
                 <div class="fg"><label>Empresa / Negocio *</label><input type="text" placeholder="Casa de iluminación, etc." required /></div>
               </div>
-              <div class="form-row2">
+              <div class="fr2">
                 <div class="fg"><label>WhatsApp *</label><input type="tel" placeholder="351 000-0000" required /></div>
                 <div class="fg"><label>Email</label><input type="email" placeholder="tu@email.com" /></div>
               </div>
               <div class="fg"><label>Provincia / Ciudad *</label><input type="text" placeholder="Ej: Córdoba, Villa Carlos Paz" required /></div>
-              <div class="fg">
-                <label>Categorías de interés</label>
+              <div class="fg"><label>Categorías de interés</label>
                 <select>
                   <option value="">Seleccioná una categoría</option>
                   <option>Iluminación LED y Lámparas</option>
@@ -593,15 +410,15 @@
                 </select>
               </div>
               <div class="fg"><label>Mensaje / Consulta</label><textarea placeholder="Contanos sobre tu negocio o qué productos te interesan..."></textarea></div>
-              <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;padding:14px;">📩 Enviar consulta</button>
-              <p class="form-note">Al enviar podemos contactarte por WhatsApp o email. <strong>Solo trabajamos con distribuidores y comercios.</strong></p>
+              <button type="submit" class="btn btn-p" style="width:100%;justify-content:center;padding:14px">📩 Enviar consulta</button>
+              <p class="fnote">Al enviar podemos contactarte por WhatsApp o email. <strong>Solo trabajamos con distribuidores y comercios.</strong></p>
             </form>
           </div>
-          <div class="form-ok" id="formOk">
+          <div class="fok" id="formOk">
             <div class="oi">✅</div>
             <h3>¡Consulta enviada!</h3>
             <p>Te contactamos en menos de 24 horas hábiles.<br>También podés escribirnos al <strong>341 352-3441</strong>.</p>
-            <div style="margin-top:18px;"><a href="https://wa.me/5493413523441" target="_blank" class="btn btn-wsp">💬 Ir a WhatsApp ahora</a></div>
+            <div style="margin-top:18px"><a href="https://wa.me/5493413523441" target="_blank" class="btn btn-w">💬 Ir a WhatsApp ahora</a></div>
           </div>
         </div>
       </div>
@@ -609,214 +426,164 @@
   </div>
 </section>
 
-<!-- ─────────────── FOOTER ─────────────── -->
 <footer>
   <div class="container">
-    <div class="footer-grid">
+    <div class="fg2">
       <div>
-        <div class="fl-logo"><img src="logo.png" alt="El Diamante" /><div class="fl-logo-text">El Diamante<small>Importación</small></div></div>
-        <p class="fl-desc">Distribución mayorista de importación directa. Iluminación, electricidad, ferretería y electrónica para todo Argentina desde Rosario.</p>
-        <div class="fl-soc">
-          <a href="https://instagram.com/eldiamanteimportacion" target="_blank">📸</a>
-          <a href="https://wa.me/5493413523441" target="_blank">💬</a>
-        </div>
+        <div class="fll"><img src="logo.png" alt="El Diamante" /><div class="flt">El Diamante<small>Importación</small></div></div>
+        <p class="fld">Distribución mayorista de importación directa. Iluminación, electricidad, ferretería y electrónica para todo Argentina desde Rosario.</p>
+        <div class="fls"><a href="https://instagram.com/eldiamanteimportacion" target="_blank">📸</a><a href="https://wa.me/5493413523441" target="_blank">💬</a></div>
       </div>
-      <div class="footer-col"><h4>Categorías</h4><ul><li><a href="#prods">Iluminación LED</a></li><li><a href="#prods">Electricidad</a></li><li><a href="#prods">Cargadores USB</a></li><li><a href="#prods">Linternas</a></li><li><a href="#prods">Ferretería</a></li></ul></div>
-      <div class="footer-col"><h4>Empresa</h4><ul><li><a href="#why">Quiénes somos</a></li><li><a href="#conds">Condiciones</a></li><li><a href="#contact">Contacto</a></li><li><a href="#prods">Catálogo 2026</a></li></ul></div>
-      <div class="footer-col"><h4>Contacto</h4>
-        <div class="fc-item">📞 <a href="https://wa.me/5493413523441">341 352-3441</a></div>
-        <div class="fc-item" style="font-size:0.73rem;">📧 <a href="mailto:eldiamanteimportacion@gmail.com">eldiamanteimportacion@gmail.com</a></div>
-        <div class="fc-item">📍 San Luis 1665 (Local 9), Rosario</div>
-        <div class="fc-item">📸 <a href="https://instagram.com/eldiamanteimportacion" target="_blank">@eldiamanteimportacion</a></div>
+      <div class="fcol"><h4>Categorías</h4><ul><li><a href="#prods">Iluminación LED</a></li><li><a href="#prods">Electricidad</a></li><li><a href="#prods">Cargadores USB</a></li><li><a href="#prods">Linternas</a></li><li><a href="#prods">Ferretería</a></li></ul></div>
+      <div class="fcol"><h4>Empresa</h4><ul><li><a href="#why">Quiénes somos</a></li><li><a href="#conds">Condiciones</a></li><li><a href="#contact">Contacto</a></li><li><a href="#prods">Catálogo 2026</a></li></ul></div>
+      <div class="fcol"><h4>Contacto</h4>
+        <div class="fci2">📞 <a href="https://wa.me/5493413523441">341 352-3441</a></div>
+        <div class="fci2" style="font-size:.73rem">📧 <a href="mailto:eldiamanteimportacion@gmail.com">eldiamanteimportacion@gmail.com</a></div>
+        <div class="fci2">📍 San Luis 1665 (Local 9), Rosario</div>
+        <div class="fci2">📸 <a href="https://instagram.com/eldiamanteimportacion" target="_blank">@eldiamanteimportacion</a></div>
       </div>
     </div>
-    <div class="footer-bot">
+    <div class="fbot">
       <p>© 2026 El Diamante Importación. Todos los derechos reservados.</p>
       <p>Distribución mayorista exclusiva · Rosario, Argentina</p>
     </div>
   </div>
 </footer>
 
-<a href="https://wa.me/5493413523441?text=Hola!%20Quiero%20información%20sobre%20distribución%20mayorista" target="_blank" class="wa-btn" title="WhatsApp">💬</a>
+<a href="https://wa.me/5493413523441?text=Hola!%20Quiero%20información%20sobre%20distribución%20mayorista" target="_blank" class="wa">💬</a>
 
 <script>
-const WA = '5493413523441';
-const IMGS = 'imgs/';
+// ─── CONFIG ───────────────────────────────────────────
+const SHEET_ID   = '1jfh3srwQkyMTtEHX8ss9ErXM26n72z7ATMELlpzZziY';
+const SHEET_NAME = 'El Diamante - Catálogo de Productos';
+const WA         = '5493413523441';
 
 const CATS = [
-  { id:'all',         name:'Todos',        ic:'🛒' },
-  { id:'iluminacion', name:'Iluminación',  ic:'💡' },
-  { id:'electricidad',name:'Electricidad', ic:'🔌' },
-  { id:'cargadores',  name:'Cargadores',   ic:'🔋' },
-  { id:'linternas',   name:'Linternas',    ic:'🔦' },
-  { id:'ferreteria',  name:'Ferretería',   ic:'🔧' },
-  { id:'electronica', name:'Electrónica',  ic:'📱' },
+  {id:'all',         name:'Todos',        ic:'🛒'},
+  {id:'iluminacion', name:'Iluminación',  ic:'💡'},
+  {id:'electricidad',name:'Electricidad', ic:'🔌'},
+  {id:'cargadores',  name:'Cargadores',   ic:'🔋'},
+  {id:'linternas',   name:'Linternas',    ic:'🔦'},
+  {id:'ferreteria',  name:'Ferretería',   ic:'🔧'},
+  {id:'electronica', name:'Electrónica',  ic:'📱'},
 ];
+const EMO = {iluminacion:'💡',electricidad:'🔌',cargadores:'🔋',linternas:'🔦',ferreteria:'🔧',electronica:'📱'};
 
-const P = [
-  // ELECTRICIDAD
-  {id:1,  name:'Mini Ficha Acople',          cat:'electricidad', art:'11724', price:'$899',    unit:'x unidad',  pres:'Bolsa x50',          desc:'Mini ficha acople, presentación en bolsa.',                              img:'art-11724.jpg', badge:null},
-  {id:2,  name:'Adaptador Enchufe',           cat:'electricidad', art:'11494', price:'$699',    unit:'x unidad',  pres:'Caja x20',           desc:'Adaptador de enchufe universal.',                                        img:'art-11494.jpg', badge:null},
-  {id:3,  name:'Portalámpara con Corte',      cat:'electricidad', art:'11286', price:'$799',    unit:'x unidad',  pres:'Caja x20',           desc:'Portalámpara con tecla de corte.',                                       img:'art-11286.jpg', badge:null},
-  {id:4,  name:'Adaptador USB 2 Entradas',    cat:'electricidad', art:'10379', price:'$1.099',  unit:'x unidad',  pres:'Se vende x12 u.',    desc:'Adaptador 2 entradas USB para auto.',                                    img:'art-10379.jpg', badge:null},
-  {id:5,  name:'Adaptador Cuadrado 220+USB',  cat:'electricidad', art:'14400', price:'$1.190',  unit:'x unidad',  pres:'Caja x20',           desc:'Adaptador cuadrado a 220v con entrada USB.',                             img:'art-14400.jpg', badge:null},
-  {id:6,  name:'Adaptador Internacional',     cat:'electricidad', art:'11241', price:'$2.998',  unit:'x unidad',  pres:'Caja individual',    desc:'Adaptador internacional para viajes.',                                   img:'art-11241.jpg', badge:null},
-  {id:7,  name:'Adaptador c/ Prot. Voltaje',  cat:'electricidad', art:'15719', price:'$11.998', unit:'x unidad',  pres:'Caja individual',    desc:'Adaptador con protector de voltaje.',                                    img:'art-15719.jpg', badge:'NUEVO'},
-  {id:8,  name:'Alargue 2mts Reforzado',      cat:'electricidad', art:'15362', price:null,      unit:null,        pres:'Individual',         desc:'Alargue 2mts reforzado, 4 entradas y botón de corte.',                   img:'art-15362.jpg', badge:'SIN STOCK'},
-  {id:9,  name:'Zapatilla 6 Entradas',        cat:'electricidad', art:'15363', price:'$6.999',  unit:'x unidad',  pres:'Individual',         desc:'Zapatilla eléctrica 6 entradas con tecla de corte.',                     img:'art-15363.jpg', badge:null},
-  {id:10, name:'Alargue 2m con USB',          cat:'electricidad', art:'21695', price:'$8.980',  unit:'x unidad',  pres:'Bolsa individual',   desc:'Alargue 2m de colores, 4 puertos USB y 4 puertos enchufe.',              img:'art-21695.jpg', badge:null},
-  {id:11, name:'Ficha Multi Toma USB',        cat:'electricidad', art:'22484', price:'$5.998',  unit:'x unidad',  pres:'Individual',         desc:'Ficha para pared multi toma USB con tecla de corte.',                    img:'art-22484.jpg', badge:null},
-  // CARGADORES
-  {id:12, name:'Cargador Celular Tipo C',     cat:'cargadores',  art:'15515', price:'$5.790',  unit:'x unidad',  pres:'Caja individual',    desc:'Cargador de celular con ficha tipo C USB.',                              img:'art-15515.jpg', badge:null},
-  {id:13, name:'Adaptador Tipo C 20W',        cat:'cargadores',  art:'13937', price:'$4.598',  unit:'x unidad',  pres:'Caja individual',    desc:'Adaptador tipo C 20W, carga rápida.',                                    img:'art-13937.jpg', badge:null},
-  {id:14, name:'Alargue USB 1.20mts',         cat:'cargadores',  art:'12934', price:'$2.290',  unit:'x unidad',  pres:'Individual',         desc:'Cable USB 1.20mts, 3 puertos USB.',                                      img:'art-12934.jpg', badge:null},
-  {id:15, name:'Cargador USB Tipo C',         cat:'cargadores',  art:'11555', price:'$2.498',  unit:'x unidad',  pres:'Caja individual',    desc:'Cargador de celular ficha tipo C USB.',                                  img:'art-11555.jpg', badge:null},
-  {id:16, name:'Cargador Portátil 4en1',      cat:'cargadores',  art:'22486', price:'$13.790', unit:'x unidad',  pres:'Individual',         desc:'Cargador portátil 4 en 1.',                                              img:'art-22486.jpg', badge:null},
-  {id:17, name:'Cargador de Batería USB',     cat:'cargadores',  art:'12495', price:'$1.890',  unit:'x unidad',  pres:'Individual',         desc:'Cargador de batería USB.',                                               img:'art-12495.jpg', badge:null},
-  {id:18, name:'Cargador de Pilas 220v',      cat:'cargadores',  art:'11162', price:'$1.890',  unit:'x unidad',  pres:'Individual',         desc:'Cargador de pilas negro 220v.',                                          img:'art-11162.jpg', badge:null},
-  {id:19, name:'Pilas Doble AA x60',          cat:'cargadores',  art:'12002', price:'$10.990', unit:'x caja',    pres:'Caja x60',           desc:'Pilas doble AA, caja x60.',                                              img:'art-12002.jpg', badge:null},
-  {id:20, name:'Pilas Triple AAA x60',        cat:'cargadores',  art:'12003', price:'$10.990', unit:'x caja',    pres:'Caja x60',           desc:'Pilas triple AAA, caja x60.',                                            img:'art-12003.jpg', badge:null},
-  {id:21, name:'Batería Recargable 3.7V',     cat:'cargadores',  art:'11319', price:'$1.698',  unit:'x unidad',  pres:'Se vende x24 u.',    desc:'Batería recargable 3.7V individual.',                                    img:'art-11319.jpg', badge:null},
-  {id:22, name:'Pila Botón',                  cat:'cargadores',  art:'6598',  price:'$1.490',  unit:'x blister', pres:'Blister',            desc:'Pila botón CR2032.',                                                     img:'art-6598.jpg',  badge:null},
-  // ILUMINACION
-  {id:23, name:'Luz Bici Recargable',         cat:'iluminacion', art:'17904', price:'$3.998',  unit:'x unidad',  pres:'Blister individual', desc:'Luz de bici recargable, incluye cable USB.',                             img:'art-17904.jpg', badge:null},
-  {id:24, name:'Luz Bici Recargable Roja',    cat:'iluminacion', art:'13953', price:'$5.998',  unit:'x unidad',  pres:'Blister individual', desc:'Luz de bici recargable trasera, incluye cable USB.',                     img:'art-13953.jpg', badge:null},
-  {id:25, name:'Guiño de Moto LED',           cat:'iluminacion', art:'21843', price:'$4.900',  unit:'x unidad',  pres:'Blister individual', desc:'Guiño moto LED blanca.',                                                 img:'art-21843.jpg', badge:null},
-  {id:26, name:'Luz Bici Volcán',             cat:'iluminacion', art:'21442', price:'$3.998',  unit:'x unidad',  pres:'Caja individual',    desc:'Luz de bici recargable, incluye cable USB.',                             img:'art-21442.jpg', badge:null},
-  {id:27, name:'Focos LED para Espejo',       cat:'iluminacion', art:'13728', price:'$12.995', unit:'x unidad',  pres:'Caja individual',    desc:'Tira de focos LED para espejo, incluye pegamento.',                      img:'art-13728.jpg', badge:null},
-  {id:28, name:'Lámpara USB',                 cat:'iluminacion', art:'14434', price:'$3.490',  unit:'x unidad',  pres:'Blister individual', desc:'Lámpara con carga USB.',                                                 img:'art-14434.jpg', badge:null},
-  {id:29, name:'Cámara IP WiFi',              cat:'iluminacion', art:'13870', price:'$19.890', unit:'x unidad',  pres:'Caja individual',    desc:'Cámara IP 504x504, red WiFi.',                                           img:'art-13870.jpg', badge:null},
-  {id:30, name:'Soporte Celular Giratorio',   cat:'iluminacion', art:'15667', price:'$2.890',  unit:'x unidad',  pres:'Individual',         desc:'Soporte giratorio para celular metálico de escritorio.',                 img:'art-15667.jpg', badge:null},
-  {id:31, name:'Farol Recargable Solar',      cat:'iluminacion', art:'13980', price:'$11.998', unit:'x unidad',  pres:'Caja individual',    desc:'Lámpara de filamento recargable y con carga solar.',                     img:'art-13980.jpg', badge:null},
-  {id:32, name:'Lámpara de Filamento Solar',  cat:'iluminacion', art:'14532', price:'$4.999',  unit:'x unidad',  pres:'Caja individual',    desc:'Lámpara de filamento con carga solar.',                                  img:'art-14532.jpg', badge:null},
-  {id:33, name:'Listón Luz LED 32cm',         cat:'iluminacion', art:'15609', price:'$4.590',  unit:'x unidad',  pres:'Con cable de carga', desc:'Luz LED 32cm recargable, incluye cable de carga.',                       img:'art-15609.jpg', badge:null},
-  {id:34, name:'Listón Luz LED 50cm',         cat:'iluminacion', art:'15610', price:'$5.990',  unit:'x unidad',  pres:'Con cable de carga', desc:'Luz LED 50cm recargable, incluye cable de carga.',                       img:'art-15610.jpg', badge:null},
-  {id:35, name:'Tira RGB con Control 5mts',   cat:'iluminacion', art:'12060', price:'$7.998',  unit:'x unidad',  pres:'Blister individual', desc:'Tira LED RGB 5m (28x35) con enchufe 220V. Incluye control.',             img:'art-12060.jpg', badge:null},
-  {id:36, name:'Tira RGB 50x50 5mts',         cat:'iluminacion', art:'11393', price:'$9.990',  unit:'x unidad',  pres:'Se vende x10 u.',    desc:'Tira LED RGB 5m (50x50) con enchufe 220V. Incluye control.',            img:'art-11393.jpg', badge:null},
-  {id:37, name:'Tira de Neón 5mts',           cat:'iluminacion', art:'11395', price:'$12.995', unit:'x unidad',  pres:'Blister individual', desc:'Tira LED 5m con transformador. Colores surtidos.',                       img:'art-11395.jpg', badge:null},
-  {id:38, name:'Proton 36 LED RGB',           cat:'iluminacion', art:'22342', price:'$22.948', unit:'x unidad',  pres:'Individual',         desc:'Proton 36 LED a 220v. Luces RGB.',                                       img:'art-22342.jpg', badge:null},
-  {id:39, name:'Protón 6 LED con Control',    cat:'iluminacion', art:'10083', price:'$9.990',  unit:'x unidad',  pres:'Caja individual',    desc:'Protón LED RGB con control remoto.',                                     img:'art-10083.jpg', badge:null},
-  {id:40, name:'Aro LED 12" con Trípode',     cat:'iluminacion', art:'14040', price:'$19.998', unit:'x unidad',  pres:'Caja individual',    desc:'Aro LED de 12" con trípode de 30cm para selfie.',                        img:'art-14040.jpg', badge:null},
-  {id:41, name:'Lámpara de Mesa LED RGB',     cat:'iluminacion', art:'15536', price:'$6.998',  unit:'x unidad',  pres:'Con cable y control',desc:'Lámpara de mesa táctil LED con luces RGB. Recargable.',                  img:'art-15536.jpg', badge:null},
-  {id:42, name:'Lámpara Diamante RGB',        cat:'iluminacion', art:'14061', price:'$7.998',  unit:'x unidad',  pres:'Con cable de carga', desc:'Lámpara diamante recargable, control TÁCTIL. Luces RGB.',                img:'art-14061.jpg', badge:null},
-  {id:43, name:'Lámpara Flexible',            cat:'iluminacion', art:'14957', price:'$11.998', unit:'x unidad',  pres:'Caja individual',    desc:'Lámpara de mesa flexible.',                                              img:'art-14957.jpg', badge:'NUEVO'},
-  {id:44, name:'Luz Libro LED',               cat:'iluminacion', art:'11603', price:'$2.198',  unit:'x unidad',  pres:'Blister individual', desc:'LED blanco frío. Carga pila reloj (incluida).',                          img:'art-11603.jpg', badge:null},
-  {id:45, name:'Lámpara Broche Recargable',   cat:'iluminacion', art:'21643', price:'$6.890',  unit:'x unidad',  pres:'Individual',         desc:'Lámpara broche recargable.',                                             img:'art-21643.jpg', badge:null},
-  {id:46, name:'Bola de Cristal LED',         cat:'iluminacion', art:'14519', price:'$2.995',  unit:'x unidad',  pres:'Caja individual',    desc:'Bola de cristal 8cm con figuras, luz cálida, base de madera.',           img:'art-14519.jpg', badge:null},
-  {id:47, name:'Luz de Noche Animales',       cat:'iluminacion', art:'14789', price:'$3.998',  unit:'x unidad',  pres:'Caja individual',    desc:'Velador animales de silicona luz cálida. A pila (incluida).',            img:'art-14789.jpg', badge:null},
-  {id:48, name:'Luz LED Colores 2W',          cat:'iluminacion', art:'11469', price:'$1.099',  unit:'x unidad',  pres:'Se vende x30 u.',    desc:'Luz LED colores surtidos.',                                              img:'art-11469.jpg', badge:null},
-  {id:49, name:'Lámpara Sunset 16 Colores',   cat:'iluminacion', art:'21823', price:'$6.998',  unit:'x unidad',  pres:'Individual',         desc:'Lámpara sunset 16 colores.',                                             img:'art-21823.jpg', badge:null},
-  {id:50, name:'Lámpara Broche con Foco',     cat:'iluminacion', art:'11608', price:'$7.900',  unit:'x unidad',  pres:'Caja individual',    desc:'Foco a rosca, colores surtidos, enchufe 220v, cuerpo de pinza.',         img:'art-11608.jpg', badge:null},
-  {id:51, name:'Lámpara Mesa Articulada',     cat:'iluminacion', art:'15253', price:'$20.999', unit:'x unidad',  pres:'Oferta x6 $19.999',  desc:'Lámpara metálica de mesa articulada con enchufe a 220v.',                img:'art-15253.jpg', badge:null},
-  {id:52, name:'Lámpara Escritorio Tubo LED', cat:'iluminacion', art:'17900', price:'$23.998', unit:'x unidad',  pres:'Caja individual',    desc:'Lámpara de escritorio, 3 modos de luz.',                                 img:'art-17900.jpg', badge:null},
-  {id:53, name:'Lámpara Broche LED Metálica', cat:'iluminacion', art:'13532', price:'$8.999',  unit:'x unidad',  pres:'Con cable USB',      desc:'Lámpara broche LED, cuerpo metálico.',                                   img:'art-13532.jpg', badge:null},
-  {id:54, name:'Velador Plegable Táctil',     cat:'iluminacion', art:'11758', price:'$11.999', unit:'x unidad',  pres:'Cable USB incluido', desc:'Velador táctil 3 intensidades, plegable.',                               img:'art-11758.jpg', badge:null},
-  {id:55, name:'Luz de Emergencia 30 LED',    cat:'iluminacion', art:'716',   price:'$6.999',  unit:'x unidad',  pres:'Individual',         desc:'Luz de emergencia 30 LED blancas.',                                      img:'art-716.jpg',   badge:null},
-  {id:56, name:'Lámpara Solar 60 LED COB',    cat:'iluminacion', art:'14942', price:'$16.998', unit:'x unidad',  pres:'Caja individual',    desc:'Lámpara solar 60 LED COB. Control remoto y sensor de movimiento.',       img:'art-14942.jpg', badge:null},
-  {id:57, name:'Reflector Solar',             cat:'iluminacion', art:'15204', price:'$14.995', unit:'x unidad',  pres:'Caja individual',    desc:'Reflector solar con control remoto y sensor de movimiento.',             img:'art-15204.jpg', badge:null},
-  // ELECTRONICA
-  {id:58, name:'Alarma Puerta con Sensor',    cat:'electronica', art:'11488', price:'$6.999',  unit:'x unidad',  pres:'Blister individual', desc:'Sensor de movimiento alcance 10mts, distintas melodías.',                img:'art-11488.jpg', badge:null},
-  {id:59, name:'Timbre con Enchufe 220V',     cat:'electronica', art:'11484', price:'$7.988',  unit:null,        pres:'Se vende x20 u.',    desc:'Carga pila incluida. Distintas melodías, alcance 30mts.',                img:'art-11484.jpg', badge:null},
-  {id:60, name:'Aspiradora para Auto',        cat:'electronica', art:'21620', price:'$6.998',  unit:'x unidad',  pres:'Individual',         desc:'Aspiradora de mano para auto 12V.',                                      img:'art-21620.jpg', badge:null},
-  {id:61, name:'Soporte Fijo TV',             cat:'electronica', art:'62619', price:'$7.890',  unit:'x unidad',  pres:'Individual',         desc:'Soporte fijo para TV.',                                                  img:'art-62619.jpg', badge:null},
-  // LINTERNAS
-  {id:62, name:'Linterna Plástico 15cm',      cat:'linternas',   art:'2179',  price:'$5.890',  unit:'x unidad',  pres:'Caja c/ cable',      desc:'Linterna de plástico 15cm, incluye cable de carga.',                    img:'art-2179.jpg',  badge:null},
-  {id:63, name:'Linterna 1 LED con Zoom',     cat:'linternas',   art:'15257', price:'$2.190',  unit:'x unidad',  pres:'Individual',         desc:'Linterna 1 LED negra con zoom.',                                         img:'art-15257.jpg', badge:null},
-  {id:64, name:'Linterna 1 LED + Baliza',     cat:'linternas',   art:'15209', price:'$3.590',  unit:'x unidad',  pres:'Blister individual', desc:'Linterna recargable 1 LED + baliza. Incluye cable.',                     img:'art-15209.jpg', badge:null},
-  {id:65, name:'Linterna COB Goma',           cat:'linternas',   art:'11300', price:'$1.998',  unit:'x unidad',  pres:'Caja x24 u.',        desc:'LED blanco frío, carga pila (no incluye).',                              img:'art-11300.jpg', badge:null},
-  {id:66, name:'Linterna COB LED',            cat:'linternas',   art:'14955', price:'$1.999',  unit:'x unidad',  pres:'Caja x24 u.',        desc:'Linterna LED, a pila (no incluye pila).',                                img:'art-14955.jpg', badge:null},
-  {id:67, name:'Luz Minero 2 Reflectores',    cat:'linternas',   art:'11283', price:'$3.980',  unit:'x unidad',  pres:'Caja individual',    desc:'LED blanco frío. Recargable, incluye cable.',                            img:'art-11283.jpg', badge:null},
-  {id:68, name:'Linterna Táctica con Estuche',cat:'linternas',   art:'11503', price:'$3.490',  unit:'x unidad',  pres:'Caja individual',    desc:'LED blanco frío. Carga USB, doble función.',                             img:'art-11503.jpg', badge:null},
-  {id:69, name:'Linterna Grande Táctica',     cat:'linternas',   art:'15419', price:'$7.999',  unit:'x unidad',  pres:'Caja individual',    desc:'Linterna táctica 17cm. LED blanco frío. Carga USB.',                    img:'art-15419.jpg', badge:null},
-  {id:70, name:'Linterna T/Cazadora',         cat:'linternas',   art:'15608', price:'$14.980', unit:'x unidad',  pres:'Caja individual',    desc:'Linterna T/cazadora recargable.',                                        img:'art-15608.jpg', badge:null},
-  {id:71, name:'Linterna con Caja Plástica',  cat:'linternas',   art:'8810',  price:'$9.980',  unit:'x unidad',  pres:'Con accesorios',     desc:'Linterna 15.5cm con caja plástica. Recargable.',                         img:'art-8810.jpg',  badge:null},
-  // FERRETERIA
-  {id:72, name:'Estaño Alambre 40gr',         cat:'ferreteria',  art:'11920', price:'$2.890',  unit:'x unidad',  pres:'Individual',         desc:'Alambre de estaño 40gr, 1mm.',                                           img:'art-11920.jpg', badge:null},
-  {id:73, name:'Destornillador Tubo x28',     cat:'ferreteria',  art:'8156',  price:'$6.998',  unit:'x unidad',  pres:'Blister x28 cabez.', desc:'Destornillador tubo en blister x28 cabezales.',                          img:'art-8156.jpg',  badge:null},
-  {id:74, name:'Buscapolo Transparente',      cat:'ferreteria',  art:'11291', price:'$599',    unit:'x unidad',  pres:'Caja x20 u.',        desc:'Buscapolo transparente.',                                                img:'art-11291.jpg', badge:null},
-  {id:75, name:'Buscapolo Inductivo Digital', cat:'ferreteria',  art:'11320', price:'$3.590',  unit:'x unidad',  pres:'Blister individual', desc:'Tipo digital, no incluye pila.',                                         img:'art-11320.jpg', badge:null},
-  {id:76, name:'Cinta Doble Faz',             cat:'ferreteria',  art:'11408', price:'$1.390',  unit:'x unidad',  pres:'Blister individual', desc:'Cinta doble faz, presentación blister.',                                 img:'art-11408.jpg', badge:null},
-  {id:77, name:'Chispero Recargable USB-C',   cat:'ferreteria',  art:'15055', price:'$4.895',  unit:'x unidad',  pres:'Blister individual', desc:'Chispero flexible recargable USB tipo C. Doble botón.',                  img:'art-15055.jpg', badge:null},
-  {id:78, name:'Cinta Métrica 3m',            cat:'ferreteria',  art:'11406', price:'$1.999',  unit:'x unidad',  pres:'Caja x12 u.',        desc:'Cinta métrica 3 metros.',                                                img:'art-11406.jpg', badge:null},
-  {id:79, name:'Cinta Métrica 5m',            cat:'ferreteria',  art:'11407', price:'$2.499',  unit:'x unidad',  pres:'Caja x12 u.',        desc:'Cinta métrica 5 metros.',                                                img:'art-11407.jpg', badge:null},
-  {id:80, name:'Cinta Métrica 3m Plástico',   cat:'ferreteria',  art:'11138', price:'$1.398',  unit:'x unidad',  pres:'Se vende x12 u.',    desc:'Cinta métrica de plástico 3 metros.',                                    img:'art-11138.jpg', badge:null},
-  {id:81, name:'Cutter Deluxe',               cat:'ferreteria',  art:'11437', price:'$1.099',  unit:'x unidad',  pres:'Blister individual', desc:'Cutter deluxe.',                                                         img:'art-11437.jpg', badge:null},
-  {id:82, name:'Linga Bici 12mm x 65cm',      cat:'ferreteria',  art:'9695',  price:'$4.395',  unit:'x unidad',  pres:'Individual',         desc:'Linga para bici 12mm x 65cm de largo.',                                  img:'art-9695.jpg',  badge:null},
-  {id:83, name:'Cadena con Candado 90cm',     cat:'ferreteria',  art:'11484c',price:'$5.995',  unit:'x unidad',  pres:'Individual',         desc:'Cadena con candado 90cm.',                                               img:'art-11484c.jpg',badge:null},
-  {id:84, name:'Traba U Colores',             cat:'ferreteria',  art:'15150', price:'$8.390',  unit:'x unidad',  pres:'Colores surtidos',   desc:'Traba U corta, colores surtidos. 180mm x 180mm.',                        img:'art-15150.jpg', badge:null},
-  {id:85, name:'Linga Bici con Soporte',      cat:'ferreteria',  art:'15009', price:'$5.295',  unit:'x unidad',  pres:'Con llave',          desc:'Linga bici con llave y soporte.',                                        img:'art-15009.jpg', badge:null},
-  {id:86, name:'Tensor x3',                   cat:'ferreteria',  art:'10070', price:'$2.290',  unit:'x unidad',  pres:'Bolsa',              desc:'Tensor x3, 8mm x 90cm.',                                                 img:'art-10070.jpg', badge:null},
-  {id:87, name:'Candado 20mm Blister x12',    cat:'ferreteria',  art:'8081',  price:'$10.998', unit:'x blister', pres:'Blister x12 u.',     desc:'Candado con llave de 20mm.',                                             img:'art-8081.jpg',  badge:null},
-  {id:88, name:'Lápiz Soldador',              cat:'ferreteria',  art:'11556', price:'$3.498',  unit:'x unidad',  pres:'Blister individual', desc:'Lápiz soldador.',                                                        img:'art-11556.jpg', badge:null},
-  {id:89, name:'Guante de Trabajo Rojo',      cat:'ferreteria',  art:'14205', price:'$1.299',  unit:'x unidad',  pres:'Se vende x12 u.',    desc:'Guantes rojo finos.',                                                    img:'art-14205.jpg', badge:null},
-  {id:90, name:'Llave Allen Blister x10',     cat:'ferreteria',  art:'10928', price:'$1.190',  unit:'x unidad',  pres:'Blister x10 piezas', desc:'Llave Allen, blister por 10 piezas.',                                    img:'art-10928.jpg', badge:null},
-  {id:91, name:'Malacate',                    cat:'ferreteria',  art:'22115', price:'$19.998', unit:'x unidad',  pres:'Individual',         desc:'Malacate.',                                                              img:'art-22115.jpg', badge:null},
-];
+let products = [], activeF = 'all', query = '';
 
-// Fallback emojis by category
-const EMO = { iluminacion:'💡', electricidad:'🔌', cargadores:'🔋', linternas:'🔦', ferreteria:'🔧', electronica:'📱' };
+// ─── FETCH DESDE GOOGLE SHEETS ────────────────────────
+async function fetchProducts() {
+  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(SHEET_NAME)}`;
+  try {
+    const res  = await fetch(url);
+    const text = await res.text();
+    const rows = parseCSV(text);
+    const headers = rows[0].map(h => h.trim().toLowerCase());
 
-let activeF = 'all', query = '';
+    products = rows.slice(1)
+      .filter(r => r.length > 1)
+      .map(r => {
+        const o = {};
+        headers.forEach((h, i) => o[h] = (r[i] || '').trim());
+        return o;
+      })
+      .filter(p => p.activo === 'TRUE' || p.activo === 'true' || p.activo === '1');
 
-function catCount(id){ return id==='all' ? P.length : P.filter(p=>p.cat===id).length; }
+    document.getElementById('heroCount').textContent = '+' + products.length;
+    render();
+  } catch(e) {
+    console.error('Error cargando productos:', e);
+    document.getElementById('pgrid').innerHTML = `<div class="nores"><p>⚠️ Error al cargar productos. Actualizá la página.</p></div>`;
+  }
+}
+
+// ─── PARSE CSV ────────────────────────────────────────
+function parseCSV(text) {
+  const rows = [];
+  let row = [], field = '', inQ = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (inQ) {
+      if (c === '"' && text[i+1] === '"') { field += '"'; i++; }
+      else if (c === '"') inQ = false;
+      else field += c;
+    } else {
+      if (c === '"') inQ = true;
+      else if (c === ',') { row.push(field); field = ''; }
+      else if (c === '\n') { row.push(field); rows.push(row); row = []; field = ''; }
+      else if (c === '\r') {}
+      else field += c;
+    }
+  }
+  if (field || row.length) { row.push(field); rows.push(row); }
+  return rows;
+}
+
+// ─── RENDER ───────────────────────────────────────────
+function catCount(id){ return id==='all' ? products.length : products.filter(p=>p.categoria===id).length; }
 
 function renderCats(){
   document.getElementById('catsGrid').innerHTML = CATS.map(c=>`
-    <div class="cat-card ${c.id===activeF?'active':''}" onclick="setF('${c.id}')">
-      <div class="cat-ic">${c.ic}</div>
-      <div class="cat-nm">${c.name}</div>
-      <div class="cat-ct">${catCount(c.id)} productos</div>
+    <div class="cc ${c.id===activeF?'active':''}" onclick="setF('${c.id}')">
+      <div class="cci">${c.ic}</div>
+      <div class="ccn">${c.name}</div>
+      <div class="ccc">${catCount(c.id)} productos</div>
     </div>`).join('');
 }
 
 function renderFilters(){
   document.getElementById('filterBar').innerHTML = CATS.map(c=>`
-    <button class="fbtn ${c.id===activeF?'active':''}" onclick="setF('${c.id}')">${c.ic} ${c.name}</button>`).join('');
-}
-
-function imgSrc(p){
-  // Check if file exists via cached check
-  return IMGS + p.img;
+    <button class="${c.id===activeF?'active':''}" onclick="setF('${c.id}')">${c.ic} ${c.name}</button>`).join('');
 }
 
 function renderProducts(){
   const q = query.toLowerCase().trim();
-  const list = P.filter(p=>{
-    const mc = activeF==='all' || p.cat===activeF;
-    const mq = !q || p.name.toLowerCase().includes(q) || p.art.includes(q) || p.desc.toLowerCase().includes(q);
+  const list = products.filter(p => {
+    const mc = activeF==='all' || p.categoria===activeF;
+    const mq = !q || p.nombre.toLowerCase().includes(q) || (p.articulo||'').includes(q) || p.descripcion.toLowerCase().includes(q);
     return mc && mq;
   });
 
-  if(!list.length){
-    document.getElementById('pgrid').innerHTML = `<div class="no-res"><div class="ni">🔍</div><p>No encontramos resultados.</p></div>`;
+  if (!list.length) {
+    document.getElementById('pgrid').innerHTML = `<div class="nores"><p>🔍 No encontramos resultados.</p></div>`;
     return;
   }
 
-  const catName = id => CATS.find(c=>c.id===id)?.name || '';
+  const catName = id => CATS.find(c=>c.id===id)?.name||'';
+  const badge = p => {
+    if (!p.badge) return '';
+    const cls = p.badge==='NUEVO' ? 'nuevo' : 'sinstock';
+    return `<span class="pb2 ${cls}">${p.badge}</span>`;
+  };
 
-  document.getElementById('pgrid').innerHTML = list.map(p=>{
-    const badgeHtml = p.badge ? `<span class="pbadge ${p.badge==='NUEVO'?'nuevo':'sinstock'}">${p.badge}</span>` : '';
-    const imgHtml = `<div class="pimg"><img src="${imgSrc(p)}" alt="${p.name}" loading="lazy" onerror="this.parentNode.innerHTML='<span class=pimg-fallback>${EMO[p.cat]||'📦'}</span>'" /></div>`;
+  document.getElementById('pgrid').innerHTML = list.map(p => {
+    const imgSrc = p.imagen || '';
+    const imgHtml = `<div class="pi">
+      <img src="${imgSrc}" alt="${p.nombre}" loading="lazy"
+           onerror="this.parentNode.innerHTML='<span class=pi-fb>${EMO[p.categoria]||'📦'}</span>'" />
+    </div>`;
+
     const priceHtml = p.badge==='SIN STOCK'
-      ? `<span class="psinstock">Sin stock</span>`
-      : p.price
-        ? `<div class="pprice">${p.price}<span class="pu">${p.unit||''}</span></div>`
+      ? `<span class="pss">Sin stock</span>`
+      : p.precio
+        ? `<div class="ppx">${p.precio}<span class="pu">${p.unidad||''}</span></div>`
         : '';
-    const wspMsg = encodeURIComponent(`Hola! Me interesa el producto: ${p.name} (Art. ${p.art}). ¿Me dan más info?`);
+
+    const wspMsg = encodeURIComponent(`Hola! Me interesa: ${p.nombre} (Art. ${p.articulo}). ¿Me dan más info?`);
     const wspHtml = p.badge!=='SIN STOCK'
-      ? `<button class="pwsp" onclick="window.open('https://wa.me/${WA}?text=${wspMsg}','_blank')" title="Consultar por WhatsApp">💬</button>`
+      ? `<button class="pwb" onclick="window.open('https://wa.me/${WA}?text=${wspMsg}','_blank')" title="Consultar">💬</button>`
       : '';
 
-    return `<div class="pcard">
-      ${badgeHtml}
+    return `<div class="pc">
+      ${badge(p)}
       ${imgHtml}
-      <div class="pbody">
-        <div class="pcat">${catName(p.cat)}</div>
-        <div class="pname">${p.name}</div>
-        <div class="part">Art. ${p.art}</div>
-        <div class="pdesc">${p.desc}</div>
-        <div class="ppres">${p.pres}</div>
-        <div class="pfooter">${priceHtml}${wspHtml}</div>
+      <div class="pbd">
+        <div class="pcat">${catName(p.categoria)}</div>
+        <div class="pnm">${p.nombre}</div>
+        <div class="part">Art. ${p.articulo}</div>
+        <div class="pds">${p.descripcion}</div>
+        <div class="ppr">${p.presentacion}</div>
+        <div class="pf">${priceHtml}${wspHtml}</div>
       </div>
     </div>`;
   }).join('');
@@ -825,49 +592,42 @@ function renderProducts(){
 function render(){ renderCats(); renderFilters(); renderProducts(); }
 
 function setF(id){
-  activeF = id; query = '';
-  const si = document.getElementById('searchInput');
-  if(si) si.value = '';
+  activeF=id; query='';
+  const si=document.getElementById('searchInput');
+  if(si) si.value='';
   render();
   document.getElementById('prods').scrollIntoView({behavior:'smooth'});
 }
 
 // Ticker
 (function(){
-  const items = ['🚚 Envíos a todo el país','💰 Compra mínima $100.000','🏭 Importación directa','✨ Nuevos ingresos Mayo/Junio 2026','📦 Consultar precios por bulto cerrado','📞 341 352-3441','📍 San Luis 1665 Local 9, Rosario'];
-  const all = [...items,...items];
-  document.getElementById('tickerTrack').innerHTML = all.map(t=>`<div class="ticker-item"><span>${t}</span><span class="ticker-sep"></span></div>`).join('');
+  const items=['🚚 Envíos a todo el país','💰 Compra mínima $100.000','🏭 Importación directa','✨ Nuevos ingresos Mayo/Junio 2026','📦 Consultar precios por bulto cerrado','📞 341 352-3441','📍 San Luis 1665 Local 9, Rosario'];
+  const all=[...items,...items];
+  document.getElementById('tickerTrack').innerHTML=all.map(t=>`<div class="ti"><span>${t}</span><span class="ts"></span></div>`).join('');
 })();
 
-// Scroll reveal
+// Reveal
 (function(){
-  const obs = new IntersectionObserver(entries=>entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('on'); obs.unobserve(e.target); } }),{threshold:0.1});
+  const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('on');obs.unobserve(x.target)}}),{threshold:.1});
   document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 })();
 
-// Navbar shadow
+// Nav
 window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('sd',scrollY>40));
 
 // Search
 document.addEventListener('DOMContentLoaded',()=>{
-  render();
-  document.getElementById('searchInput').addEventListener('input',e=>{ query=e.target.value; renderProducts(); });
+  fetchProducts();
+  document.getElementById('searchInput').addEventListener('input',e=>{query=e.target.value;renderProducts();});
 });
 
 // Form
 function submitForm(e){
   e.preventDefault();
-  const f = e.target;
-  const fields = f.querySelectorAll('input,select,textarea');
-  const nombre  = fields[0]?.value||'';
-  const empresa = fields[1]?.value||'';
-  const tel     = fields[2]?.value||'';
-  const prov    = fields[4]?.value||'';
-  const cat     = fields[5]?.value||'No especificada';
-  const msg     = fields[6]?.value||'';
-  const waMsg   = encodeURIComponent(`Hola! Soy ${nombre} de ${empresa} (${prov}).\nTel: ${tel}\nCategoría: ${cat}${msg?'\nMensaje: '+msg:''}`);
-  document.getElementById('formContent').style.display = 'none';
-  document.getElementById('formOk').style.display = 'block';
+  const f=e.target, fi=f.querySelectorAll('input,select,textarea');
+  const waMsg=encodeURIComponent(`Hola! Soy ${fi[0]?.value||''} de ${fi[1]?.value||''} (${fi[4]?.value||''}).\nTel: ${fi[2]?.value||''}\nCategoría: ${fi[5]?.value||'No especificada'}${fi[6]?.value?'\nMensaje: '+fi[6].value:''}`);
+  document.getElementById('formContent').style.display='none';
+  document.getElementById('formOk').style.display='block';
   setTimeout(()=>window.open(`https://wa.me/${WA}?text=${waMsg}`,'_blank'),500);
 }
 </script>
